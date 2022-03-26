@@ -7,18 +7,28 @@ generator client {
     provider = "prisma-client-js"
 }
 
-model Video {
-    id        String
-    lbryUrl   String
-    scrapDate BigInt
-
-    @@unique([id, lbryUrl])
+enum LbryUrlType {
+    Video
+    Channel
 }
 
-model Channel {
+model LbryUrlMap {
     id        String
     lbryUrl   String
     scrapDate BigInt
+    type      LbryUrlType
+    foundBy   Profile?    @relation(fields: [profilePublicKey], references: [publicKey])
 
+    profilePublicKey String?
     @@unique([id, lbryUrl])
+    @@index([type])
+    @@index([type, id])
+    @@index([profilePublicKey])
+    @@index([profilePublicKey, type])
+}
+
+model Profile {
+    publicKey  String       @id
+    nickname   String
+    LbryUrlMap LbryUrlMap[]
 }
