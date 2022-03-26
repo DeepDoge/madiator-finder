@@ -24,7 +24,7 @@ export async function api<T extends ResponseBody>(resolver: () => Promise<T>): P
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: errRes as any
+            body: errRes.message
         }
     }
 }

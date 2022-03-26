@@ -92,16 +92,12 @@ async function task(params: {
         {
             const responseIds: Record<string, string> = response.data[params.odyseeApi.responsePath]
 
-            let publicKey = params.keys.publicKey
-            if (params.keys)
+            let publicKey = null
+            if (params.keys && verifySignature(params.keys))
             {
-                if (verifySignature(params.keys))
-                {
-                    const profile = await prisma.profile.findUnique({ where: { publicKey } })
-                    if (!profile) await prisma.profile.create({ data: { publicKey } })
-                }
-                else
-                    publicKey = null
+                const profile = await prisma.profile.findUnique({ where: { publicKey } })
+                if (!profile) await prisma.profile.create({ data: { publicKey } })
+                publicKey = params.keys.publicKey
             }
 
             await prisma.lbryUrlMap.createMany({
