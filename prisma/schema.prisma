@@ -29,6 +29,6 @@ model LbryUrlMap {
 
 model Profile {
     publicKey  String       @id
-    nickname   String
+    nickname   String?
     LbryUrlMap LbryUrlMap[]
 }

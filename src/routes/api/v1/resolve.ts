@@ -4,48 +4,61 @@ import { string } from "$modules/cute-struct/src/cute-struct/fields/string"
 import { many } from "$modules/cute-struct/src/cute-struct/many"
 import { struct } from "$modules/cute-struct/src/cute-struct/struct"
 import type { RequestHandler } from "@sveltejs/kit"
+import crypto from 'crypto'
 
 const resolveYtIdParams = struct({
     channelIds: many(string({})).asFieldLike({ optional: true }),
     videoIds: many(string({})).asFieldLike({ optional: true }),
-    signature: string({})
+    keys: struct({
+        publicKey: string({}),
+        signature: string({}),
+        data: string({})
+    }).asFieldLike({ optional: true })
 })
 
-export const get: RequestHandler<{ channelIds?: string, videoIds?: string, signature: string }, any> = async (event) =>
+export const get: RequestHandler<{ channelIds?: string, videoIds?: string, signature?: string, publicKey?: string }, any> = async (event) =>
 {
     return await api(async () =>
     {
-        const params = resolveYtIdParams.verify({
-            channelIds: event.url.searchParams.get('channelIds')?.split(','),
-            videoIds: event.url.searchParams.get('videoIds')?.split(','),
-            signature: event.url.searchParams.get('signature')
-        })
+        const params = resolveYtIdParams.verify(Object.assign(
+            {
+                channelIds: event.params.channelIds?.split(','),
+                videoIds: event.params.videoIds?.split(','),
+            },
+            event.params.publicKey && event.params.signature ? {
+                keys: {
+                    publicKey: event.params.publicKey,
+                    signature: event.params.signature,
+                    data: event.url.searchParams.toString()
+                }
+            } : {}
+        ))
 
         return Object.assign(
-            params.channelIds?.length > 0 ? {
-                channels: await task({
-                    ids: params.channelIds,
-                    type: 'Channel',
-                    odyseeApi: {
-                        responsePath: 'channels',
-                        searchParam: 'channel_ids'
-                    },
-                    signature: params.signature ?? null,
-                    signatureData: event.url.searchParams.toString()
-                })
-            } : {},
-            params.videoIds?.length > 0 ? {
-                videos: await task({
-                    ids: params.videoIds,
-                    type: 'Video',
-                    odyseeApi: {
-                        responsePath: 'videos',
-                        searchParam: 'video_ids'
-                    },
-                    signature: params.signature ?? null,
-                    signatureData: event.url.searchParams.toString()
-                })
-            } : {}
+            params.channelIds?.length > 0 ?
+                {
+                    channels: await task({
+                        ids: params.channelIds,
+                        type: 'Channel',
+                        odyseeApi: {
+                            responsePath: 'channels',
+                            searchParam: 'channel_ids'
+                        },
+                        keys: params.keys
+                    })
+                } : {},
+            params.videoIds?.length > 0 ?
+                {
+                    videos: await task({
+                        ids: params.videoIds,
+                        type: 'Video',
+                        odyseeApi: {
+                            responsePath: 'videos',
+                            searchParam: 'video_ids'
+                        },
+                        keys: params.keys
+                    })
+                } : {}
         )
     })
 }
@@ -57,8 +70,7 @@ async function task(params: {
         responsePath: 'channels' | 'videos'
     },
     ids: string[],
-    signatureData: string,
-    signature: string
+    keys?: typeof resolveYtIdParams['TYPE']['keys']['TYPE']
 })
 {
     const odyseeApiUrl = new URL(`https://api.odysee.com/yt/resolve`)
@@ -80,7 +92,17 @@ async function task(params: {
         {
             const responseIds: Record<string, string> = response.data[params.odyseeApi.responsePath]
 
-            const publicKey = await verifySignatureAndGetPublicKey(params.signatureData, params.signature)
+            let publicKey = params.keys.publicKey
+            if (params.keys)
+            {
+                if (verifySignature(params.keys))
+                {
+                    const profile = await prisma.profile.findUnique({ where: { publicKey } })
+                    if (!profile) await prisma.profile.create({ data: { publicKey } })
+                }
+                else
+                    publicKey = null
+            }
 
             await prisma.lbryUrlMap.createMany({
                 data: Object.entries(responseIds).map(([id, lbryUrl]) => ({
@@ -98,8 +120,15 @@ async function task(params: {
     return cache
 }
 
-async function verifySignatureAndGetPublicKey(data: string, signature: string): Promise<string>
+async function verifySignature(keys: Parameters<typeof task>['0']['keys']): Promise<boolean>
 {
-    if (signature === null) return null
-    return '123'
+    return crypto.verify(
+        "sha256",
+        Buffer.from(keys.data),
+        {
+            key: keys.publicKey,
+            padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+        },
+        Buffer.from(keys.signature)
+    )
 }

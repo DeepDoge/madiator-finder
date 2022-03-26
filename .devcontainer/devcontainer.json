@@ -16,8 +16,6 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"svelte.svelte-vscode",
-		"cweijan.vscode-mysql-client2",
-		"github.vscode-pull-request-github",
 		"bierner.folder-source-actions",
 		"jbockle.jbockle-format-files",
 		"eamodio.gitlens",
