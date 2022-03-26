@@ -17,7 +17,7 @@ model LbryUrlMap {
     lbryUrl   String
     scrapDate BigInt
     type      LbryUrlType
-    foundBy   Profile?    @relation(fields: [profilePublicKey], references: [publicKey])
+    foundBy   Profile?    @relation(fields: [profilePublicKey], references: [publicKey], onDelete: SetNull, onUpdate: Cascade)
 
     profilePublicKey String?
     @@unique([id, lbryUrl])
