@@ -5,20 +5,19 @@ import { string } from "$modules/cute-struct/src/cute-struct/fields/string"
 import { many } from "$modules/cute-struct/src/cute-struct/many"
 import { struct } from "$modules/cute-struct/src/cute-struct/struct"
 import type { RequestHandler } from "@sveltejs/kit"
-import type { ServerRequest } from "@sveltejs/kit/types/hooks"
 
 const resolveYtIdParams = struct({
     channelIds: many(string({})).asFieldLike({ optional: true }),
     videoIds: many(string({})).asFieldLike({ optional: true })
 })
 
-export const get: RequestHandler<Locals> = async (req: ServerRequest) =>
+export const get: RequestHandler<{ channelIds?: string, videoIds?: string }, any> = async (event) =>
 {
     return await api(async () =>
     {
         const params = resolveYtIdParams.verify({
-            channelIds: req.query.get('channelIds')?.split(','),
-            videoIds: req.query.get('videoIds')?.split(',')
+            channelIds: event.url.searchParams.get('channelIds')?.split(','),
+            videoIds: event.url.searchParams.get('videoIds')?.split(',')
         })
 
         return Object.assign(

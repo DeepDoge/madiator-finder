@@ -1,4 +1,5 @@
 import preprocess from 'svelte-preprocess'
+import adapter from '@sveltejs/adapter-node'
 import path from 'path'
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -9,8 +10,7 @@ const config = {
 
 	kit:
 	{
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
+		adapter: adapter({}),
 		vite:
 		{
 			resolve:
@@ -18,8 +18,7 @@ const config = {
 				alias:
 				{
 					"$": path.resolve('./src'),
-					"$modules": path.resolve('./modules'),
-					"$prisma": path.resolve('./prisma')
+					"$modules": path.resolve('./modules')
 				}
 			},
 

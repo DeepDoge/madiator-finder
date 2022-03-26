@@ -1,6 +1,6 @@
-import type { ServerResponse } from "@sveltejs/kit/types/hooks"
+import type { RequestHandlerOutput, ResponseBody } from "@sveltejs/kit/types"
 
-export async function api<T>(resolver: () => Promise<T>): Promise<ServerResponse>
+export async function api<T extends ResponseBody>(resolver: () => Promise<T>): Promise<RequestHandlerOutput<T>>
 {
     try
     {
@@ -9,7 +9,7 @@ export async function api<T>(resolver: () => Promise<T>): Promise<ServerResponse
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(await resolver() ?? null)
+            body: await resolver() ?? null
         }
     }
     catch (err)
@@ -24,7 +24,7 @@ export async function api<T>(resolver: () => Promise<T>): Promise<ServerResponse
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(errRes)
+            body: errRes as any
         }
     }
 }
