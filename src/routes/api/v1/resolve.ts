@@ -101,13 +101,17 @@ async function task(params: {
             }
 
             await prisma.lbryUrlMap.createMany({
-                data: Object.entries(responseIds).map(([id, lbryUrl]) => ({
-                    id,
-                    lbryUrl,
-                    scrapDate: Date.now(),
-                    profilePublicKey: publicKey,
-                    type: params.type
-                }))
+                data: Object.entries(responseIds).filter(([id, lbryUrl]) => lbryUrl).map(([id, lbryUrl]) =>
+                {
+                    const data: Parameters<typeof prisma.lbryUrlMap.createMany>['0']['data'] = {
+                        id,
+                        lbryUrl,
+                        scrapDate: Date.now(),
+                        profilePublicKey: publicKey,
+                        type: params.type
+                    }
+                    return data
+                })
             })
             Object.assign(cache, responseIds)
         })
