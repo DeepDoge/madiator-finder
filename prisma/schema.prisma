@@ -13,8 +13,7 @@ enum LbryUrlType {
 }
 
 model LbryUrlMap {
-    index     BigInt      @id() @map("_id")
-    id        String
+    id        String      @id() @map("_id")
     lbryUrl   String
     scrapDate BigInt
     type      LbryUrlType
