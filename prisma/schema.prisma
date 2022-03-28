@@ -1,5 +1,5 @@
 datasource db {
-    provider = "mysql"
+    provider = "mongodb"
     url      = env("DATABASE_URL")
 }
 
@@ -13,6 +13,7 @@ enum LbryUrlType {
 }
 
 model LbryUrlMap {
+    index     BigInt      @id() @map("_id")
     id        String
     lbryUrl   String
     scrapDate BigInt
@@ -28,7 +29,7 @@ model LbryUrlMap {
 }
 
 model Profile {
-    publicKey  String       @id
+    publicKey  String       @id @map("_id")
     nickname   String?
     LbryUrlMap LbryUrlMap[]
 }
