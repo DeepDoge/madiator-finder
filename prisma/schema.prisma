@@ -1,5 +1,5 @@
 datasource db {
-    provider = "mongodb"
+    provider = "postgresql"
     url      = env("DATABASE_URL")
 }
 
@@ -13,14 +13,14 @@ enum LbryUrlType {
 }
 
 model LbryUrlMap {
-    id        String      @id() @map("_id")
+    id        String
     lbryUrl   String
     scrapDate BigInt
     type      LbryUrlType
     foundBy   Profile?    @relation(fields: [profilePublicKey], references: [publicKey], onDelete: SetNull, onUpdate: Cascade)
 
     profilePublicKey String?
-    @@unique([id, lbryUrl])
+    @@id([id, lbryUrl])
     @@index([type])
     @@index([type, id])
     @@index([profilePublicKey])
@@ -28,7 +28,7 @@ model LbryUrlMap {
 }
 
 model Profile {
-    publicKey  String       @id @map("_id")
+    publicKey  String       @id
     nickname   String?
     LbryUrlMap LbryUrlMap[]
 }
