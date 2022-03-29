@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Button from "$lib/Glow/Button.svelte";
-    import TextField from "$lib/Glow/TextField.svelte";
+    import Button from "$lib/GlowUI/Button.svelte";
+    import TextField from "$lib/GlowUI/TextField.svelte";
     import Row from "$lib/Row/Row.svelte";
 </script>
 
@@ -12,13 +12,13 @@
         </Row>
     </div>
     <form class="search g-theme-crazy" on:submit|preventDefault={() => alert("")}>
-        <label for="search">Search YouTube Video on LBRY</label>
+        <label for={null}>Search YouTube Video on LBRY</label>
         <div>
             <div class="search-text">
                 <TextField required placeholder="Paste YouTube URL to Search..." />
             </div>
             <div class="search-submit">
-                <Button _id="search" type="submit" text="Search" />
+                <Button type="submit" text="Search" />
             </div>
         </div>
     </form>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import GlowApp from "$lib/Glow/GlowApp.svelte"
+import GlowApp from "$lib/GlowUI/GlowApp.svelte"
 
     interface NavItem {
         title: string
