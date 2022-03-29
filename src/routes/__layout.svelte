@@ -30,3 +30,15 @@ import GlowApp from "$lib/Glow/GlowApp.svelte"
 <footer>
     Hey
 </footer>
+
+<style>
+    :global(body::before)
+    {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: var(--g-crazy-color);
+        z-index: -1;
+        filter: blur(100px) opacity(.1);
+    }
+</style>

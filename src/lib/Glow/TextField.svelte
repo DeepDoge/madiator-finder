@@ -1,5 +1,6 @@
 <script lang="ts">
     import { v4 as uuid } from "@lukeed/uuid";
+    import Border from "./Border.svelte";
 
     export let label: string = null;
     export let placeholder = null;
@@ -12,9 +13,12 @@
     {#if label}
         <label for={id}>{label}</label>
     {/if}
-    <label for={id} class="input-wrapper">
-        <input {id} type="text" bind:value {placeholder} />
-    </label>
+    <div class="input">
+        <Border>
+            <input {id} type="text" bind:value {placeholder} />
+        </Border>
+        <slot name="append-after-input"></slot>
+    </div>
 </div>
 
 <style>
@@ -22,55 +26,34 @@
         display: flex;
         width: 100%;
         flex-direction: column;
-        gap: .5em;
+        gap: 0.5em;
     }
 
     label {
         cursor: pointer;
+        font-weight: bold;
+    }
+
+    .input {
+        display: flex;
+        gap: .25em;
     }
 
     input {
         border: none;
         width: 100%;
+        padding: 0.75em;
         background-color: transparent;
-        color: var(--g-text-color);
+        color: currentColor;
         font-size: inherit;
+    }
+
+    input::placeholder
+    {
+        color: currentColor;
     }
 
     input:focus {
         outline: none;
-    }
-
-    .input-wrapper {
-        position: relative;
-        padding: 0.75em;
-        cursor: text;
-        --border-radius: var(--g-border-radius);
-        border-radius: var(--border-radius);
-    }
-
-    .input-wrapper::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-color: var(--g-foreground-color);
-        z-index: -1;
-        border-radius: var(--border-radius);
-    }
-
-    .input-wrapper::before {
-        content: "";
-        position: absolute;
-        inset: -.15em;
-        background: var(--g-crazy-color);
-        z-index: -1;
-        border-radius: var(--border-radius);
-        transition: var(--g-transition);
-        transition-property: inset;
-    }
-
-    .input-wrapper:not(:focus-within)::before
-    {
-        inset: 0
     }
 </style>
