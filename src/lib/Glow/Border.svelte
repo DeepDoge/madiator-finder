@@ -5,7 +5,6 @@
 <style>
     .border {
         width: 100%;
-        height: 100%;
         position: relative;
 
         display: flex;
@@ -27,7 +26,8 @@
         border-radius: var(--border-radius);
         z-index: -1;
         transition: var(--g-transition);
-        transition-property: filter;
+        transition-property: opacity;
+        opacity: .95;
     }
 
     .border::before {
@@ -44,11 +44,6 @@
 
     .border:hover::before,
     .border:focus-within::before {
-        filter: brightness(1.3) opacity(.9);
-    }
-
-    .border:hover::after,
-    .border:focus-within::after {
-        filter: opacity(.98);
+        filter: brightness(1.3);
     }
 </style>

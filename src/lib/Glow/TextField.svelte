@@ -1,44 +1,16 @@
 <script lang="ts">
-    import { v4 as uuid } from "@lukeed/uuid";
     import Border from "./Border.svelte";
 
-    export let label: string = null;
     export let placeholder = null;
     export let value: string = null;
-
-    let id = uuid();
+    export let required = false;
 </script>
 
-<div class="text-field">
-    {#if label}
-        <label for={id}>{label}</label>
-    {/if}
-    <div class="input">
-        <Border>
-            <input {id} type="text" bind:value {placeholder} />
-        </Border>
-        <slot name="append-after-input"></slot>
-    </div>
-</div>
+<Border>
+    <input on:change {required} type="text" bind:value {placeholder} />
+</Border>
 
 <style>
-    .text-field {
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        gap: 0.5em;
-    }
-
-    label {
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .input {
-        display: flex;
-        gap: .25em;
-    }
-
     input {
         border: none;
         width: 100%;
@@ -48,8 +20,7 @@
         font-size: inherit;
     }
 
-    input::placeholder
-    {
+    input::placeholder {
         color: currentColor;
     }
 

@@ -3,10 +3,11 @@
 
     export let type: "button" | "submit" = "button";
     export let text: string;
+    export let _id: string = null
 </script>
 
 <Border>
-    <input {type} value={text} on:click />
+    <input id={_id} {type} value={text} on:click />
 </Border>
 
 <style>
