@@ -1,3 +1,6 @@
 [submodule "modules/cute-struct"]
 	path = modules/cute-struct
 	url = https://github.com/DeepDoge/cute-struct.git
+[submodule "src/lib/Row"]
+	path = src/lib/Row
+	url = https://github.com/DeepDoge/svelte-responsive-row.git
