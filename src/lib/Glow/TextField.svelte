@@ -12,7 +12,9 @@
     {#if label}
         <label for={id}>{label}</label>
     {/if}
-    <input {id} type="text" bind:value {placeholder} />
+    <label for={id} class="input-wrapper">
+        <input {id} type="text" bind:value {placeholder} />
+    </label>
 </div>
 
 <style>
@@ -29,18 +31,46 @@
 
     input {
         border: none;
-        background-color: var(--g-foreground-color);
+        width: 100%;
+        background-color: transparent;
         color: var(--g-text-color);
-        padding: 0.75em;
-
-        min-width: 0;
-        border-radius: var(--g-border-radius);
-
         font-size: inherit;
     }
 
     input:focus {
-        outline: solid .1em var(--g-primary-color);
-        background-color: var(--g-background-color);
+        outline: none;
+    }
+
+    .input-wrapper {
+        position: relative;
+        padding: 0.75em;
+        cursor: text;
+        --border-radius: var(--g-border-radius);
+        border-radius: var(--border-radius);
+    }
+
+    .input-wrapper::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: var(--g-foreground-color);
+        z-index: -1;
+        border-radius: var(--border-radius);
+    }
+
+    .input-wrapper::before {
+        content: "";
+        position: absolute;
+        inset: -.15em;
+        background: var(--g-crazy-color);
+        z-index: -1;
+        border-radius: var(--border-radius);
+        transition: var(--g-transition);
+        transition-property: inset;
+    }
+
+    .input-wrapper:not(:focus-within)::before
+    {
+        inset: 0
     }
 </style>

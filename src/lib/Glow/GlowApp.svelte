@@ -15,13 +15,29 @@
 
         --g-box-shadow: 0 0px 5px 0 rgb(0 0 0 / 12%);
         --g-border-radius: 0.25rem;
+        --g-transition: linear .1s;
 
+        --g-primary-color: #537de0;
+        --g-crazy-color: linear-gradient(30deg, var(--g-primary-color), purple, var(--g-primary-color));
+
+        --g-body-color: #272a31;
+        --g-background-color: #212429;
+        --g-foreground-color: #31343c;
+        --g-text-color: #979da6;
+    }
+
+    :global(.g-theme-light) {
         --g-primary-color: #537de0;
 
         --g-body-color: #272a31;
         --g-background-color: #212429;
-        --g-foreground-color: rgba(49, 52, 60, 0.85);
+        --g-foreground-color: #31343c;
         --g-text-color: #979da6;
+    }
+
+    :global(body) {
+        background-color: var(--g-body-color);
+        color: var(--g-text-color);
     }
 
     :global(::-webkit-scrollbar) {
@@ -38,24 +54,6 @@
 
     :global(::-webkit-scrollbar-thumb:hover) {
         background: var(--g-foreground-color);
-    }
-
-    :global(body) {
-        background-color: var(--g-body-color);
-        color: var(--g-text-color);
-    }
-
-    :global(*) {
-        outline-color: var(--g-primary-color);
-    }
-
-    :global(.g-theme-light) {
-        --g-primary-color: #537de0;
-
-        --g-body-color: #272a31;
-        --g-background-color: #212429;
-        --g-foreground-color: #31343c;
-        --g-text-color: #979da6;
     }
 
     :global(h1),
