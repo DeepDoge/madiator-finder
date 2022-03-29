@@ -43,6 +43,8 @@
 
     :global(body) {
         background-color: var(--g-body-color);
+        padding: 0;
+        margin: 0;
     }
 
     :global(*), :global(*::after), :global(*::before)

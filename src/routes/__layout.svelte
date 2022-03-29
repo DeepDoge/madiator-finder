@@ -7,7 +7,10 @@ import GlowApp from "$lib/Glow/GlowApp.svelte"
     }
 
     const navItems: NavItem[] = [
-
+        {
+            title: "Home",
+            route: "/"
+        }
     ]
 </script>
 
@@ -39,6 +42,29 @@ import GlowApp from "$lib/Glow/GlowApp.svelte"
         inset: 0;
         background: var(--g-crazy-color);
         z-index: -1;
-        filter: blur(100px) opacity(.1);
+        filter: blur(5rem) opacity(.1);
+    }
+
+
+    header {
+        position: sticky;
+        top: 0;
+        padding: 1.25em .75em;
+    }
+
+    header::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: var(--g-background-color);
+        opacity: .75;
+        box-shadow: 0 0 .5rem 0 var(--g-background-color);
+        z-index: -1;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
     }
 </style>
