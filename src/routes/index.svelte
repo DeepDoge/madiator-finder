@@ -11,13 +11,13 @@
             <div class="counter">Channels: 1,122</div>
         </Row>
     </div>
-    <form class="search" on:submit|preventDefault={() => alert("")}>
-        <label class="neon-text" for={null}>Search YouTube Video on LBRY</label>
+    <form class="search g-theme-inverted g-box-no-border" on:submit|preventDefault={() => alert("")}>
+        <label for={null}>Search YouTube Video on LBRY</label>
         <div class="search-box">
-            <div class="search-text g-box-colored">
+            <div class="search-text">
                 <TextField required placeholder="Paste YouTube URL to Search..." />
             </div>
-            <div class="search-submit g-theme-wild">
+            <div class="search-submit">
                 <Button type="submit" text="Search" />
             </div>
         </div>

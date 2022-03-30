@@ -7,10 +7,7 @@
     }
 
     const navItems: NavItem[] = [
-        {
-            title: "Home",
-            route: "/",
-        },
+ 
     ];
 </script>
 
@@ -18,7 +15,9 @@
     <nav title="Top Navigation">
         <ul>
             {#each navItems as navItem}
-                <li><a href={navItem.route}>{navItem.title}</a></li>
+                <li>
+                    <a href={navItem.route}>{navItem.title}</a>
+                </li>
             {/each}
         </ul>
     </nav>
@@ -37,7 +36,7 @@
         inset: 0;
         background: var(--g-wild-color);
         z-index: -1;
-        filter: blur(5rem) opacity(0.25);
+        filter: blur(5rem) opacity(0.9);
     }
 
     header {
