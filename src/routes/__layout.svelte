@@ -36,7 +36,7 @@
         inset: 0;
         background: var(--g-wild-color);
         z-index: -1;
-        filter: blur(5rem) opacity(0.9);
+        filter: blur(5rem) opacity(0.1);
     }
 
     header {

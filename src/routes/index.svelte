@@ -5,13 +5,13 @@
 </script>
 
 <div class="content">
-    <div class="counters">
+    <div class="counters neon-text">
         <Row type="fit" idealSize="10em">
             <div class="counter">Videos: 13,324</div>
             <div class="counter">Channels: 1,122</div>
         </Row>
     </div>
-    <form class="search g-theme-inverted g-box-no-border" on:submit|preventDefault={() => alert("")}>
+    <form class="search g-theme-wild" on:submit|preventDefault={() => alert("")}>
         <label for={null}>Search YouTube Video on LBRY</label>
         <div class="search-box">
             <div class="search-text">
