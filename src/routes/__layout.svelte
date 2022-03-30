@@ -1,17 +1,17 @@
 <script lang="ts">
-import GlowApp from "$lib/GlowUI/GlowApp.svelte"
+    import "$lib/GlowUI/style.css"
 
     interface NavItem {
-        title: string
-        route: string
+        title: string;
+        route: string;
     }
 
     const navItems: NavItem[] = [
         {
             title: "Home",
-            route: "/"
-        }
-    ]
+            route: "/",
+        },
+    ];
 </script>
 
 <header>
@@ -25,31 +25,25 @@ import GlowApp from "$lib/GlowUI/GlowApp.svelte"
 </header>
 
 <main>
-    <GlowApp>
-        <slot></slot>
-    </GlowApp>
+    <slot />
 </main>
 
-<footer>
-    Hey
-</footer>
+<footer>Hey</footer>
 
 <style>
-    :global(body::before)
-    {
+    :global(body::before) {
         content: "";
         position: fixed;
         inset: 0;
-        background: var(--g-crazy-color);
+        background: var(--g-wild-color);
         z-index: -1;
-        filter: blur(5rem) opacity(.1);
+        filter: blur(5rem) opacity(0.25);
     }
-
 
     header {
         position: sticky;
         top: 0;
-        padding: 1.25em .75em;
+        padding: 1.25em 0.75em;
     }
 
     header::after {
@@ -57,8 +51,8 @@ import GlowApp from "$lib/GlowUI/GlowApp.svelte"
         position: absolute;
         inset: 0;
         background-color: var(--g-background-color);
-        opacity: .75;
-        box-shadow: 0 0 .5rem 0 var(--g-background-color);
+        opacity: 0.75;
+        box-shadow: 0 0 0.5rem 0 var(--g-background-color);
         z-index: -1;
     }
 

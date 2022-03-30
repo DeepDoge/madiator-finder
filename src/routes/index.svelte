@@ -11,13 +11,13 @@
             <div class="counter">Channels: 1,122</div>
         </Row>
     </div>
-    <form class="search g-theme-crazy" on:submit|preventDefault={() => alert("")}>
-        <label for={null}>Search YouTube Video on LBRY</label>
-        <div>
-            <div class="search-text">
+    <form class="search" on:submit|preventDefault={() => alert("")}>
+        <label class="neon-text" for={null}>Search YouTube Video on LBRY</label>
+        <div class="search-box">
+            <div class="search-text g-box-colored">
                 <TextField required placeholder="Paste YouTube URL to Search..." />
             </div>
-            <div class="search-submit">
+            <div class="search-submit g-theme-wild">
                 <Button type="submit" text="Search" />
             </div>
         </div>
@@ -65,7 +65,7 @@
         font-size: 1.75rem;
     }
 
-    .search > div {
+    .search > .search-box {
         display: flex;
         flex-wrap: wrap;
         gap: 0.25em;
