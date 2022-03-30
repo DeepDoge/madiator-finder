@@ -1,27 +1,30 @@
 <script lang="ts">
-    import Button from "$lib/GlowUI/Button.svelte";
     import TextField from "$lib/GlowUI/TextField.svelte";
     import Row from "$lib/Row/Row.svelte";
 </script>
 
 <div class="content">
-    <div class="counters neon-text">
+    <div class="counters">
         <Row type="fit" idealSize="10em">
-            <div class="counter">Videos: 13,324</div>
-            <div class="counter">Channels: 1,122</div>
+            <div class="counter neon-text">Videos: 13,324</div>
+            <div class="counter wild-text">Channels: 1,122</div>
         </Row>
     </div>
-    <form class="search g-theme-wild" on:submit|preventDefault={() => alert("")}>
-        <label for={null}>Search YouTube Video on LBRY</label>
-        <div class="search-box">
-            <div class="search-text">
-                <TextField required placeholder="Paste YouTube URL to Search..." />
-            </div>
-            <div class="search-submit">
-                <Button type="submit" text="Search" />
-            </div>
-        </div>
-    </form>
+    <div class="g-theme-wild">
+        <TextField />
+    </div>
+    <div class="">
+        <TextField />
+    </div>
+    <div class="g-theme-inverted">
+        <TextField />
+    </div>
+    <div class="g-theme-master">
+        <TextField />
+    </div>
+    <div class="g-theme-slave">
+        <TextField />
+    </div>
 </div>
 
 <style>
@@ -47,37 +50,15 @@
         position: relative;
         padding: 1.5em 2em;
     }
-    
+
     .counter::after {
         content: "";
         position: absolute;
         inset: 0;
         background-color: var(--g-background-color);
         border-radius: var(--g-border-radius);
-        box-shadow: 0 0 .5rem 0 var(--g-background-color);
+        box-shadow: 0 0 0.5rem 0 var(--g-background-color);
         z-index: -1;
-        opacity: .25;
-    }
-
-    .search {
-        display: grid;
-        gap: 0.25em;
-        font-size: 1.75rem;
-    }
-
-    .search > .search-box {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.25em;
-    }
-
-    .search-text {
-        flex: 100;
-        min-width: min(100%, 20em);
-    }
-
-    .search-submit {
-        display: flex;
-        flex: 1;
+        opacity: 0.25;
     }
 </style>

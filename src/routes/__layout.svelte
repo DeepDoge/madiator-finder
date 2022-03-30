@@ -30,15 +30,6 @@
 <footer>Hey</footer>
 
 <style>
-    :global(body::before) {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: var(--g-wild-color);
-        z-index: -1;
-        filter: blur(5rem) opacity(0.1);
-    }
-
     header {
         position: sticky;
         top: 0;
