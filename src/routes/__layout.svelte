@@ -46,6 +46,10 @@
         z-index: -1;
     }
 
+    main {
+        min-height: 100vh;
+    }
+
     ul {
         margin: 0;
         padding: 0;
