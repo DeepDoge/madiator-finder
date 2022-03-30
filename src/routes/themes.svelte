@@ -7,7 +7,7 @@
     import TextField from "$lib/GlowUI/TextField.svelte";
     import Row from "$lib/Row/Row.svelte";
 
-    let themes = ["default", "wild", "mono", "master", "slave", "wild-filled", "wild-glow"] as const;
+    let themes = ["default", "wild", "mono", "master", "slave"] as const;
 </script>
 
 <div class="themes">
@@ -15,6 +15,20 @@
         {#each themes as theme}
             <div class="theme g-theme-{theme}">
                 {theme}
+                <TextField value="Text Field" />
+                <Sheet>Sheet</Sheet>
+                <GlowBox>Box</GlowBox>
+                <Button text="Button" />
+            </div>
+            <div class="theme g-theme-filled g-theme-{theme}">
+                {theme} [filled]
+                <TextField value="Text Field" />
+                <Sheet>Sheet</Sheet>
+                <GlowBox>Box</GlowBox>
+                <Button text="Button" />
+            </div>
+            <div class="theme g-theme-no-border g-theme-{theme}">
+                {theme} [no border]
                 <TextField value="Text Field" />
                 <Sheet>Sheet</Sheet>
                 <GlowBox>Box</GlowBox>
@@ -32,7 +46,7 @@
     .theme {
         width: 100%;
         display: grid;
-        grid-template-columns: repeat(auto-fill, 1fr);
-        gap: 1em;
+        grid-auto-flow: row;
+        gap: 2em;
     }
 </style>
