@@ -7,34 +7,36 @@
     import TextField from "$lib/GlowUI/TextField.svelte";
     import Row from "$lib/Row/Row.svelte";
 
-    let themes = ["default", "mono", "mono-inverse", "master", "slave"] as const;
+    const themes = ["default", "mono", "master", "slave"] as const;
+    const colorThemes = ['light', 'dark'] as const
 </script>
 
 <div class="themes">
-    <Row idealSize="20em" gap="1em">
-        {#each themes as theme}
-            <div class="theme g-theme-{theme}">
-                {theme}
-                <TextField value="Text Field" />
-                <Sheet>Sheet</Sheet>
-                <GlowBox>Box</GlowBox>
-                <Button>Button</Button>
-                <Button text>Text Button</Button>
-            </div>
-            <div class="theme g-theme-no-glow g-theme-{theme}">
-                {theme} [no glow]
-                <TextField value="Text Field" />
-                <Sheet>Sheet</Sheet>
-                <GlowBox>Box</GlowBox>
-                <Button>Button</Button>
-                <Button text>Text Button</Button>
-            </div>
-        {/each}
-    </Row>
+    {#each colorThemes as colorMode}
+    <GlowBox {colorMode}>
+        <div class="box-inner g-theme-inverted">
+            <Row idealSize="20em" gap="1em">
+                {#each themes as theme}
+                    <div class="theme g-theme-{theme}">
+                        {theme}
+                        <TextField value="Text Field" />
+                        <Sheet>Sheet</Sheet>
+                        <GlowBox>Box</GlowBox>
+                        <Button>Button</Button>
+                        <Button text>Text Button</Button>
+                    </div>
+                {/each}
+            </Row>
+        </div>
+    </GlowBox>    
+    {/each}
 </div>
 
 <style>
     .themes {
+        display: grid;
+        grid-auto-flow: row;
+        gap: 2em;
         padding: 2em;
     }
 
@@ -42,6 +44,10 @@
         width: 100%;
         display: grid;
         grid-auto-flow: row;
-        gap: .5em;
+        gap: 0.5em;
+    }
+
+    .box-inner {
+        padding: 1em;
     }
 </style>
