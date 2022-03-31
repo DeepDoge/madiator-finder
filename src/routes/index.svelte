@@ -55,9 +55,9 @@
         content: "";
         position: absolute;
         inset: 0;
-        background-color: var(--g-background-color);
+        background-color: var(--g-foreground-color);
         border-radius: var(--g-border-radius);
-        box-shadow: 0 0 0.5rem 0 var(--g-background-color);
+        box-shadow: 0 0 0.5rem 0 var(--g-foreground-color);
         z-index: -1;
         opacity: 0.25;
     }
