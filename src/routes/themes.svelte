@@ -20,20 +20,6 @@
                 <GlowBox>Box</GlowBox>
                 <Button text="Button" />
             </div>
-            <div class="theme g-theme-no-foreground g-theme-{theme}">
-                {theme} [no foreground]
-                <TextField value="Text Field" />
-                <Sheet>Sheet</Sheet>
-                <GlowBox>Box</GlowBox>
-                <Button text="Button" />
-            </div>
-            <div class="theme g-theme-no-background g-theme-{theme}">
-                {theme} [no background]
-                <TextField value="Text Field" />
-                <Sheet>Sheet</Sheet>
-                <GlowBox>Box</GlowBox>
-                <Button text="Button" />
-            </div>
             <div class="theme g-theme-no-glow g-theme-{theme}">
                 {theme} [no glow]
                 <TextField value="Text Field" />
@@ -54,6 +40,6 @@
         width: 100%;
         display: grid;
         grid-auto-flow: row;
-        gap: 2em;
+        gap: .5em;
     }
 </style>
