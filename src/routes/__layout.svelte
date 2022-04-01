@@ -1,8 +1,5 @@
 <script lang="ts">
-import App from "$lib/GlowUI/App.svelte";
-
-    import Sheet from "$lib/GlowUI/Sheet.svelte";
-    import "$lib/GlowUI/style.css";
+    import App from "$lib/GlowUI/App.svelte";
 
     interface NavItem {
         title: string;
@@ -12,7 +9,16 @@ import App from "$lib/GlowUI/App.svelte";
     const navItems: NavItem[] = [];
 </script>
 
-<App colorMode="dark" theme="wild">
+<App
+    colorMode="dark"
+    theme="wild"
+    colors={{
+        master: "#005fd4",
+        slave: "#00d476",
+        dark: "rgba(39, 42, 49)",
+        light: "rgb(235, 237, 241)",
+    }}
+>
     <header>
         <nav title="Top Navigation">
             <ul>

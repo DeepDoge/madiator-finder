@@ -12,15 +12,15 @@
         <div class="box-inner">
             <Row idealSize="20em" gap="1em">
                 {#each themes as theme}
-                    <div class="theme" style="background:red">
+                    <div class="theme">
                         {theme}
-                        <Sheet>
+                        <Sheet {theme} border glow rounded>
                             <div class="stuff">
                                 Lorem ipsum dolor sit amet consectetur adipisicing
-                                <Sheet>
+                                <Sheet rounded border>
                                     <div class="stuff">
                                         Lorem ipsum dolor sit amet consectetur adipisicing
-                                        <Sheet>
+                                        <Sheet rounded border>
                                             <div class="stuff">Lorem ipsum dolor sit amet consectetur adipisicing</div>
                                         </Sheet>
                                     </div>
