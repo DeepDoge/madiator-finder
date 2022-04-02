@@ -1,12 +1,5 @@
 <script lang="ts">
     import App from "$lib/GlowUI/App.svelte";
-
-    interface NavItem {
-        title: string;
-        route: string;
-    }
-
-    const navItems: NavItem[] = [];
 </script>
 
 <App
@@ -20,48 +13,28 @@
     }}
 >
     <header>
-        <nav title="Top Navigation">
-            <ul>
-                {#each navItems as navItem}
-                    <li>
-                        <a href={navItem.route}>{navItem.title}</a>
-                    </li>
-                {/each}
-            </ul>
-        </nav>
+        <h1>Madiator Finder</h1>
     </header>
-
     <main>
         <slot />
     </main>
 
-    <footer>Hey</footer>
+    <footer>Footer</footer>
 </App>
 
 <style>
     header {
-        position: sticky;
+        position: absolute;
         top: 0;
         padding: 1.25em 0.75em;
+        pointer-events: none;
     }
 
-    header::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-color: var(--g-foreground-color);
-        opacity: 0.75;
-        box-shadow: 0 0 0.5rem 0 var(--g-foreground-color);
-        z-index: -1;
+    header h1 {
+        font-size: clamp(1.5rem, 10vw, 2.5rem);
     }
 
     main {
         min-height: 100vh;
-    }
-
-    ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
     }
 </style>

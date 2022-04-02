@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Sheet from "$lib/GlowUI/Sheet.svelte";
+    import Sheet from "$lib/GlowUI/Box.svelte";
     import Row from "$lib/Row/Row.svelte";
 
     const themes = ["wild", "mono", "master", "slave"] as const;
