@@ -1,4 +1,6 @@
 <script lang="ts">
+    import Leaderboard from "$lib/App/Leaderboard.svelte";
+import Box from "$lib/GlowUI/Box.svelte";
     import Button from "$lib/GlowUI/Button.svelte";
     import TextField from "$lib/GlowUI/TextField.svelte";
     import Row from "$lib/Row/Row.svelte";
@@ -9,8 +11,12 @@
         <div class="search">
             <h2>Search</h2>
             <form on:submit|preventDefault={() => alert("yo!")}>
+                <div class="search-field">
                 <TextField />
+            </div>
+            <div class="search-actions">
                 <Button>Search</Button>
+            </div>
             </form>
         </div>
         <div class="counters">
@@ -21,7 +27,10 @@
         </div>
     </section>
     <section id="section-leaderboard">
-        <h2>Leaderboard</h2>
+        <div class="leaderboard">
+            <h2>Leaderboard</h2>
+            <Leaderboard  />
+        </div>
     </section>
 </div>
 
@@ -29,25 +38,6 @@
     .content {
         display: grid;
         gap: 1em;
-    }
-
-    .counters {
-        width: min(100%, 60rem);
-        padding: 1rem;
-        font-size: 1.5em;
-        text-align: center;
-        letter-spacing: clamp(0.5ch, 0.5vw, 0.75ch);
-    }
-
-    .search {
-        width: min(100%, 60rem);
-    }
-    .search form {
-        display: grid;
-        grid-auto-flow: column;
-        grid-template-columns: 1fr auto;
-        gap: 0.25em;
-
         font-size: 1.5em;
     }
 
@@ -55,10 +45,46 @@
         display: grid;
         align-content: center;
         justify-items: center;
-        padding: 0.5rem;
+        padding: 0.5em;
     }
 
     #section-search {
-        min-height: 100vh;
+        
+        min-height: max(calc(100vh - var(--header-height)), 15em);
+    }
+
+    .search {
+        width: min(100%, 40em);
+        margin-top: calc(-1 * var(--header-height));
+    }
+    .search form {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: stretch;
+        gap: 0.25em;
+    }
+    .search-actions 
+    {
+        width: auto;
+        flex-grow: 1;
+    }
+    .search-field {
+        flex-grow: 100000000000000;
+        min-width: min(10em, 100%);
+    }
+
+    .counters {
+        width: min(100%, 40em);
+        padding: 1em;
+        text-align: center;
+        letter-spacing: clamp(0.5ch, 0.5vw, 0.75ch);
+    }
+
+    .leaderboard {
+        display: grid;
+        justify-items: center;
+        width: min(100%, 30em);
+        text-align: center;
+        padding: 1em;
     }
 </style>

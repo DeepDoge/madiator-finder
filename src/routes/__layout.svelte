@@ -1,5 +1,7 @@
 <script lang="ts">
     import App from "$lib/GlowUI/App.svelte";
+
+    let headerHeight = 0
 </script>
 
 <App
@@ -12,10 +14,10 @@
         light: "rgb(235, 237, 241)",
     }}
 >
-    <header>
+    <header bind:clientHeight={headerHeight}>
         <h1>Madiator Finder</h1>
     </header>
-    <main>
+    <main style:--header-height="{headerHeight}px">
         <slot />
     </main>
 
@@ -24,14 +26,12 @@
 
 <style>
     header {
-        position: absolute;
-        top: 0;
-        padding: 1.25em 0.75em;
+        padding: 0.75em;
         pointer-events: none;
     }
 
     header h1 {
-        font-size: clamp(1.5rem, 10vw, 2.5rem);
+        font-size: clamp(1.5em, 10vw, 2.5em);
     }
 
     main {
