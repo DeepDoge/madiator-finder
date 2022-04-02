@@ -1,7 +1,7 @@
 <script lang="ts">
     import App from "$lib/GlowUI/App.svelte";
 
-    let headerHeight = 0
+    let headerHeight = 0;
 </script>
 
 <App

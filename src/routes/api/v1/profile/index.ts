@@ -5,5 +5,5 @@ import type { RequestHandler } from "@sveltejs/kit"
 export const get: RequestHandler<{ publicKey }, any> = async (event) =>
 {
     const publicKey = event.params.publicKey
-    return await api(async () => await prisma.profile.findUnique({ where: { publicKey }}))
+    return await api(async () => await prisma.profile.findUnique({ where: { publicKey } }))
 }

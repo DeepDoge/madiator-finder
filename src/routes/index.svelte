@@ -1,6 +1,5 @@
 <script lang="ts">
     import Leaderboard from "$lib/App/Leaderboard.svelte";
-import Box from "$lib/GlowUI/Box.svelte";
     import Button from "$lib/GlowUI/Button.svelte";
     import TextField from "$lib/GlowUI/TextField.svelte";
     import Row from "$lib/Row/Row.svelte";
@@ -12,11 +11,11 @@ import Box from "$lib/GlowUI/Box.svelte";
             <h2>Search</h2>
             <form on:submit|preventDefault={() => alert("yo!")}>
                 <div class="search-field">
-                <TextField />
-            </div>
-            <div class="search-actions">
-                <Button>Search</Button>
-            </div>
+                    <TextField />
+                </div>
+                <div class="search-actions">
+                    <Button>Search</Button>
+                </div>
             </form>
         </div>
         <div class="counters">
@@ -29,7 +28,7 @@ import Box from "$lib/GlowUI/Box.svelte";
     <section id="section-leaderboard">
         <div class="leaderboard">
             <h2>Leaderboard</h2>
-            <Leaderboard  />
+            <Leaderboard />
         </div>
     </section>
 </div>
@@ -45,11 +44,10 @@ import Box from "$lib/GlowUI/Box.svelte";
         display: grid;
         align-content: center;
         justify-items: center;
-        padding: 0.5em;
     }
 
     #section-search {
-        
+        padding: 0.5em;
         min-height: max(calc(100vh - var(--header-height)), 15em);
     }
 
@@ -63,8 +61,7 @@ import Box from "$lib/GlowUI/Box.svelte";
         align-content: stretch;
         gap: 0.25em;
     }
-    .search-actions 
-    {
+    .search-actions {
         width: auto;
         flex-grow: 1;
     }
@@ -80,11 +77,14 @@ import Box from "$lib/GlowUI/Box.svelte";
         letter-spacing: clamp(0.5ch, 0.5vw, 0.75ch);
     }
 
+    #section-leaderboard {
+        padding: 0.5em;
+    }
+
     .leaderboard {
         display: grid;
         justify-items: center;
         width: min(100%, 30em);
         text-align: center;
-        padding: 1em;
     }
 </style>
