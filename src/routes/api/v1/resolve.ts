@@ -98,6 +98,10 @@ async function task(params: {
                 const profile = await prisma.profile.findUnique({ where: { publicKey } })
                 if (!profile) await prisma.profile.create({ data: { publicKey } })
                 publicKey = params.keys.publicKey
+                await prisma.profile.update({
+                    data: { score: profile.score + 1 },
+                    where: { publicKey }
+                })
             }
 
             await prisma.lbryUrlMap.createMany({

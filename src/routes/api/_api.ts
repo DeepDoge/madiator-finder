@@ -1,6 +1,6 @@
 import type { RequestHandlerOutput, ResponseBody } from "@sveltejs/kit/types"
 
-export async function api<T extends ResponseBody>(resolver: () => Promise<T>): Promise<RequestHandlerOutput<T>>
+export async function api<T extends ResponseBody>(resolver: () => Promise<any>): Promise<RequestHandlerOutput<T>>
 {
     try
     {
