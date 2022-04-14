@@ -1,7 +1,5 @@
 <script lang="ts">
     import Leaderboard from "$lib/App/Leaderboard.svelte";
-    import Button from "$lib/GlowUI/Button.svelte";
-    import TextField from "$lib/GlowUI/TextField.svelte";
     import Row from "$lib/Row/Row.svelte";
 </script>
 
@@ -10,11 +8,11 @@
         <div class="search">
             <h2>Search</h2>
             <form on:submit|preventDefault={() => alert("yo!")}>
-                <div class="search-field">
-                    <TextField />
-                </div>
-                <div class="search-actions">
-                    <Button>Search</Button>
+                <fieldset>
+                    
+                </fieldset>
+                <div class="actions">
+
                 </div>
             </form>
         </div>
@@ -61,11 +59,11 @@
         align-content: stretch;
         gap: 0.25em;
     }
-    .search-actions {
+    .search .actions {
         width: auto;
         flex-grow: 1;
     }
-    .search-field {
+    .search fieldset {
         flex-grow: 100000000000000;
         min-width: min(10em, 100%);
     }

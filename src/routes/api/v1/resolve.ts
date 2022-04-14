@@ -130,7 +130,7 @@ async function verifySignature(keys: Parameters<typeof task>['0']['keys']): Prom
         "sha256",
         Buffer.from(keys.data),
         {
-            key: keys.publicKey,
+            key: Buffer.from(keys.publicKey),
             padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
         },
         Buffer.from(keys.signature)

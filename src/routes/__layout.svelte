@@ -1,28 +1,15 @@
-<script lang="ts">
-    import App from "$lib/GlowUI/App.svelte";
-
+<script lang="ts">    
     let headerHeight = 0;
 </script>
 
-<App
-    colorMode="dark"
-    theme="wild"
-    colors={{
-        master: "#005fd4",
-        slave: "#00d476",
-        dark: "rgba(39, 42, 49)",
-        light: "rgb(235, 237, 241)",
-    }}
->
-    <header bind:clientHeight={headerHeight}>
-        <h1>Madiator Finder</h1>
-    </header>
-    <main style:--header-height="{headerHeight}px">
-        <slot />
-    </main>
+<header bind:clientHeight={headerHeight}>
+    <h1>Madiator Finder</h1>
+</header>
+<main style:--header-height="{headerHeight}px">
+    <slot />
+</main>
 
-    <footer>Footer</footer>
-</App>
+<footer>Footer</footer>
 
 <style>
     header {

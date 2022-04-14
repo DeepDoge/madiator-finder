@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { prisma } from "$/plugins/prisma";
-    import Box from "$lib/GlowUI/Box.svelte";
 
     type T = ReturnType<typeof prisma.profile.findMany>;
     const rowsPromise: T = fetch("/api/v1/profile/leaderboard").then((value) => value.json()) as any;
@@ -11,15 +10,13 @@
         ...
     {:then rows}
         {#each rows as row, i}
-            <Box glow rounded>
-                <li class="row">
-                    <div class="rank">#{i}</div>
-                    <div class="details">
-                        <div class="nickname">{row.nickname}</div>
-                        <div class="score">Score: {row.score}</div>
-                    </div>
-                </li>
-            </Box>
+            <li class="row">
+                <div class="rank">#{i}</div>
+                <div class="details">
+                    <div class="nickname">{row.nickname}</div>
+                    <div class="score">Score: {row.score}</div>
+                </div>
+            </li>
         {/each}
     {/await}
 </ul>
@@ -60,7 +57,7 @@
         position: absolute;
         inset: 0;
         background: var(--g-color-mode);
-        opacity: .8;
+        opacity: 0.8;
     }
     .details > * {
         position: relative;

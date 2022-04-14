@@ -4,6 +4,3 @@
 [submodule "src/lib/Row"]
 	path = src/lib/Row
 	url = https://github.com/DeepDoge/svelte-responsive-row.git
-[submodule "src/lib/GlowUI"]
-	path = src/lib/GlowUI
-	url = https://github.com/DeepDoge/glow-ui.git
