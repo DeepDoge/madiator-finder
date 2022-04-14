@@ -61,7 +61,7 @@
             <div class="glow" />
             <div class="border" />
             <div class="background" />
-            <input type="text" bind:value={href} aria-label="enter youtube url to search it on LBRY" placeholder="YouTube Channel or Video URL" />
+            <input type="url" bind:value={href} aria-label="enter youtube url to search it on LBRY" placeholder="YouTube Channel or Video URL" />
         </div>
         <div class="actions">
             <button aria-label="Search YouTube URL">
