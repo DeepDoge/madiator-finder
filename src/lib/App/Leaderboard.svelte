@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { prisma } from "$/plugins/prisma";
+    import { request } from "$/plugins/common/api";
+    import type { getLeaderboardRequest } from "$/routes/api/v1/profile/leaderboard";
 
-    type T = ReturnType<typeof prisma.profile.findMany>;
-    const rowsPromise: T = fetch("/api/v1/profile/leaderboard").then((value) => value.json()) as any;
+    const rowsPromise = request<typeof getLeaderboardRequest>("/v1/profile/leaderboard", {});
 </script>
 
 <ul class="rows">

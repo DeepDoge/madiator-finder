@@ -1,9 +1,11 @@
 import { prisma } from "$/plugins/prisma"
-import { api } from "$/routes/api/_api"
-import type { RequestHandler } from "@sveltejs/kit"
+import { apiRequest } from "$/routes/api/_api"
+import type { PrismaClient } from "@prisma/client"
 
-export const get: RequestHandler<{ publicKey }, any> = async (event) =>
-{
-    const publicKey = event.params.publicKey
-    return await api(async () => await prisma.profile.findUnique({ where: { publicKey } }))
-}
+export const getProfileRequest = apiRequest<
+    Parameters<PrismaClient['profile']['findUnique']>[0]['where']
+>()
+(async ({ params, profile }) => {
+    return await prisma.profile.findUnique({ where: { publicKey: params.publicKey } })
+})
+export const get = getProfileRequest.requestHandler

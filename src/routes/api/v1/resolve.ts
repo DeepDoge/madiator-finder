@@ -1,9 +1,8 @@
 import { prisma } from "$/plugins/prisma"
-import { api } from "$/routes/api/_api"
+import { apiRequest } from "$/routes/api/_api"
 import { string } from "$modules/cute-struct/src/cute-struct/fields/string"
 import { many } from "$modules/cute-struct/src/cute-struct/many"
 import { struct } from "$modules/cute-struct/src/cute-struct/struct"
-import type { RequestHandler } from "@sveltejs/kit"
 import crypto from 'crypto'
 
 const resolveYtIdParams = struct({
@@ -16,52 +15,66 @@ const resolveYtIdParams = struct({
     }).asFieldLike({ optional: true })
 })
 
-export const get: RequestHandler<{ channelIds?: string, videoIds?: string, signature?: string, publicKey?: string }, any> = async (event) =>
+async function verifySignature(keys: Parameters<typeof task>['0']['keys']): Promise<boolean>
 {
-    return await api(async () =>
+    return crypto.verify(
+        "sha256",
+        Buffer.from(keys.data),
+        {
+            key: Buffer.from(keys.publicKey),
+            padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
+        },
+        Buffer.from(keys.signature)
+    )
+}
+
+export const resolveYtRequest = apiRequest<
+    { channelIds?: string, videoIds?: string, signature?: string, publicKey?: string }
+>()
+    (async ({ params, profile, event }) =>
     {
-        const params = resolveYtIdParams.verify(Object.assign(
+        const p = resolveYtIdParams.verify(Object.assign(
             {
-                channelIds: event.params.channelIds?.split(','),
-                videoIds: event.params.videoIds?.split(','),
+                channelIds: params.channelIds?.split(','),
+                videoIds: params.videoIds?.split(','),
             },
-            event.params.publicKey && event.params.signature ? {
+            params.publicKey && params.signature ? {
                 keys: {
-                    publicKey: event.params.publicKey,
-                    signature: event.params.signature,
+                    publicKey: params.publicKey,
+                    signature: params.signature,
                     data: event.url.searchParams.toString()
                 }
             } : {}
         ))
 
         return Object.assign(
-            params.channelIds?.length > 0 ?
+            p.channelIds?.length > 0 ?
                 {
                     channels: await task({
-                        ids: params.channelIds,
+                        ids: p.channelIds,
                         type: 'Channel',
                         odyseeApi: {
                             responsePath: 'channels',
                             searchParam: 'channel_ids'
                         },
-                        keys: params.keys
+                        keys: p.keys
                     })
                 } : {},
-            params.videoIds?.length > 0 ?
+            p.videoIds?.length > 0 ?
                 {
                     videos: await task({
-                        ids: params.videoIds,
+                        ids: p.videoIds,
                         type: 'Video',
                         odyseeApi: {
                             responsePath: 'videos',
                             searchParam: 'video_ids'
                         },
-                        keys: params.keys
+                        keys: p.keys
                     })
                 } : {}
-        )
+        ) as { channels?: Record<string, string>, videos?: Record<string, string> }
     })
-}
+export const get = resolveYtRequest.requestHandler
 
 async function task(params: {
     type: 'Video' | 'Channel'
@@ -122,17 +135,4 @@ async function task(params: {
     }
 
     return cache
-}
-
-async function verifySignature(keys: Parameters<typeof task>['0']['keys']): Promise<boolean>
-{
-    return crypto.verify(
-        "sha256",
-        Buffer.from(keys.data),
-        {
-            key: Buffer.from(keys.publicKey),
-            padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
-        },
-        Buffer.from(keys.signature)
-    )
 }

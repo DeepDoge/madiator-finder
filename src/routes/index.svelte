@@ -1,33 +1,18 @@
 <script lang="ts">
+    import Counters from "$lib/App/Counters.svelte";
     import Leaderboard from "$lib/App/Leaderboard.svelte";
-    import Row from "$lib/Row/Row.svelte";
+    import Search from "$lib/App/Search.svelte";
 </script>
 
 <div class="content">
     <section id="section-search">
-        <div class="search">
-            <h2>Search</h2>
-            <form on:submit|preventDefault={() => alert("yo!")}>
-                <fieldset>
-                    
-                </fieldset>
-                <div class="actions">
-
-                </div>
-            </form>
-        </div>
-        <div class="counters">
-            <Row type="fit" idealSize="10em">
-                <div class="counter">Videos: 13,324</div>
-                <div class="counter">Channels: 1,122</div>
-            </Row>
-        </div>
+        <h2>Search</h2>
+        <Search />
+        <Counters />
     </section>
     <section id="section-leaderboard">
-        <div class="leaderboard">
-            <h2>Leaderboard</h2>
-            <Leaderboard />
-        </div>
+        <h2>Leaderboard</h2>
+        <Leaderboard />
     </section>
 </div>
 
@@ -38,51 +23,16 @@
         font-size: 1.5em;
     }
 
-    section {
+    #section-search {
         display: grid;
         align-content: center;
-        justify-items: center;
-    }
-
-    #section-search {
-        padding: 0.5em;
-        min-height: max(calc(100vh - var(--header-height)), 15em);
-    }
-
-    .search {
-        width: min(100%, 40em);
-        margin-top: calc(-1 * var(--header-height));
-    }
-    .search form {
-        display: flex;
-        flex-wrap: wrap;
-        align-content: stretch;
-        gap: 0.25em;
-    }
-    .search .actions {
-        width: auto;
-        flex-grow: 1;
-    }
-    .search fieldset {
-        flex-grow: 100000000000000;
-        min-width: min(10em, 100%);
-    }
-
-    .counters {
-        width: min(100%, 40em);
-        padding: 1em;
-        text-align: center;
-        letter-spacing: clamp(0.5ch, 0.5vw, 0.75ch);
+        justify-content: center;
+        grid-template-columns: min(100%, 40em);
+        min-height: 100vh;
+        padding: var(--out-padding);
     }
 
     #section-leaderboard {
-        padding: 0.5em;
-    }
-
-    .leaderboard {
-        display: grid;
-        justify-items: center;
-        width: min(100%, 30em);
-        text-align: center;
+        padding: var(--out-padding);
     }
 </style>

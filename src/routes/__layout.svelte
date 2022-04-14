@@ -1,11 +1,11 @@
-<script lang="ts">    
-    let headerHeight = 0;
+<script lang="ts">
+    import "$/app.css"
 </script>
 
-<header bind:clientHeight={headerHeight}>
+<header>
     <h1>Madiator Finder</h1>
 </header>
-<main style:--header-height="{headerHeight}px">
+<main>
     <slot />
 </main>
 
@@ -13,6 +13,9 @@
 
 <style>
     header {
+        position: absolute;
+        inset: 0;
+        bottom: unset;
         padding: 0.75em;
         pointer-events: none;
     }
