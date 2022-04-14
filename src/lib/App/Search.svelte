@@ -151,7 +151,7 @@
     button {
         display: block;
         background: transparent;
-        color: #fff;
+        color: var(--color-mode-inverse);
         font-size: inherit;
         font-weight: bold;
         border: none;
