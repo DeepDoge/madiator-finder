@@ -21,7 +21,8 @@
 		"eamodio.gitlens",
 		"Prisma.prisma",
 		"IronGeek.vscode-env",
-		"R.git-submodule-sort"
+		"R.git-submodule-sort",
+		"lonefy.vscode-JS-CSS-HTML-formatter"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

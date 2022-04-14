@@ -21,7 +21,7 @@ import { onDestroy, onMount } from "svelte";
     onDestroy(() => clearInterval(interval))
 </script>
 
-<div class="counters">
+<div class="counters" aria-label="number of videos and channels we have on our database">
     <Row type="fit" idealSize="10em">
         <div class="counter">Videos: {counters?.videos ?? '...'}</div>
         <div class="counter">Channels: {counters?.channels ?? '...'}</div>

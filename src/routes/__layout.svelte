@@ -1,17 +1,23 @@
 <script lang="ts">
-    import "$/app.css"
+    import "$/app.css";
 </script>
 
-<header>
-    <h1>Madiator Finder</h1>
-</header>
-<main>
-    <slot />
-</main>
+<div id="layout">
+    <header>
+        <h1>Madiator Finder</h1>
+    </header>
+    <main>
+        <slot />
+    </main>
 
-<footer>Footer</footer>
+    <footer>Footer</footer>
+</div>
 
 <style>
+    #layout {
+        background: var(--color-mode);
+        color: var(--color-mode-inverse)
+    }
     header {
         position: absolute;
         inset: 0;

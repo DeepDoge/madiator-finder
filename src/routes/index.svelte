@@ -8,7 +8,6 @@
     <section id="section-search">
         <h2>Search</h2>
         <Search />
-        <Counters />
     </section>
     <section id="section-leaderboard">
         <h2>Leaderboard</h2>
@@ -29,7 +28,7 @@
         justify-content: center;
         grid-template-columns: min(100%, 40em);
         min-height: 100vh;
-        padding: var(--out-padding);
+        padding: var(--padding-outer);
     }
 
     #section-leaderboard {
