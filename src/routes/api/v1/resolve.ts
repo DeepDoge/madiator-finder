@@ -1,11 +1,9 @@
-import { verify } from "$/plugins/common/crypto"
 import { prisma } from "$/plugins/prisma"
 import { apiRequest } from "$/routes/api/_api"
 import { string } from "$modules/cute-struct/src/cute-struct/fields/string"
 import { many } from "$modules/cute-struct/src/cute-struct/many"
 import { struct } from "$modules/cute-struct/src/cute-struct/struct"
 import type { Profile } from "@prisma/client"
-import crypto from 'crypto'
 
 const resolveYtIdParams = struct({
     channelIds: many(string({})).asFieldLike({ optional: true }),

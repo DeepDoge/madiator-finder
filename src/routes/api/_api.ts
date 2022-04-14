@@ -30,10 +30,13 @@ export function apiRequest<Params>(requireAuth = false)
             {
                 if (event.params.keys)
                 {
-                    if (!verify(event.url.searchParams.toString(), event.params.signature, event.params.publicKey))
+                    const keys = JSON.parse(event.params.keys)
+                    const data = new URLSearchParams(event.url.searchParams)
+                    data.delete('keys')
+                    if (!verify(data.toString(), keys.signature, keys.publicKey))
                         throw new Error()
-                    var profile = await prisma.profile.findUnique({ where: { publicKey: event.params.publicKey } })
-                    if (!profile) profile = await prisma.profile.create({ data: { publicKey: event.params.publicKey } })
+                    var profile = await prisma.profile.findUnique({ where: { publicKey: keys.publicKey } })
+                    if (!profile) profile = await prisma.profile.create({ data: { publicKey: keys.publicKey } })
                 }
 
                 if (requireAuth && !profile) throw new Error();
