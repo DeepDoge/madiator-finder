@@ -35,11 +35,19 @@
         try {
             const url = new URL(href);
             const data = parseUrl(url);
-            const r = await request<typeof resolveYtRequest>("/v1/resolve", {
-                publicKey: null,
-                signature: null,
-                ...(data.type === "channel" ? { channelIds: data.id } : { videoIds: data.id }),
-            });
+            const searchParams = new URLSearchParams()
+            switch (data.type) {
+                case "channel":
+                    searchParams.set("channel-ids", data.id);
+                    break;
+                case "video":
+                    searchParams.set("video-ids", data.id);
+                    break;
+                default:
+                    throw new Error();
+            }
+
+            const r = await request<typeof resolveYtRequest>(`/v1/resolve?${searchParams.toString()}`, {});
 
             result = r.channels?.[data.id] ?? r.videos?.[data.id];
             (document.querySelector("#search-result") as any).focus();
@@ -74,14 +82,14 @@
 </div>
 <Counters />
 {#if result}
-<section>
-    <h2>Result:</h2>
-    <div class="result">
-        <div class="glow" />
-        <div class="background" />
-        <a id="search-result" href="https://odysee.com/{result}" target="_blank" alt="Search result">{result}</a>
-    </div>
-</section>
+    <section>
+        <h2>Result:</h2>
+        <div class="result">
+            <div class="glow" />
+            <div class="background" />
+            <a id="search-result" href="https://odysee.com/{result}" target="_blank" alt="Search result">{result}</a>
+        </div>
+    </section>
 {:else if loading}
     ...
 {:else if errorMessage}
@@ -183,7 +191,7 @@
     }
 
     .error-message {
-        color: var(--color-error)
+        color: var(--color-error);
     }
 
     .result {
@@ -193,7 +201,8 @@
         --background: var(--color-mode);
         --background-opacity: 0.95;
     }
-    .result, .result > * {
+    .result,
+    .result > * {
         position: relative;
     }
 
@@ -211,7 +220,6 @@
         white-space: nowrap;
         overflow: hidden;
     }
-
 
     .glow {
         position: absolute;

@@ -28,20 +28,18 @@ async function verifySignature(keys: Parameters<typeof task>['0']['keys']): Prom
     )
 }
 
-export const resolveYtRequest = apiRequest<
-    { channelIds?: string, videoIds?: string, signature?: string, publicKey?: string }
->()
+export const resolveYtRequest = apiRequest()
     (async ({ params, profile, event }) =>
     {
         const p = resolveYtIdParams.verify(Object.assign(
             {
-                channelIds: params.channelIds?.split(','),
-                videoIds: params.videoIds?.split(','),
+                channelIds: event.params['channel-ids']?.split(','),
+                videoIds: event.params['video-ids']?.split(','),
             },
-            params.publicKey && params.signature ? {
+            event.params.publicKey && event.params.signature ? {
                 keys: {
-                    publicKey: params.publicKey,
-                    signature: params.signature,
+                    publicKey: event.params.publicKey,
+                    signature: event.params.signature,
                     data: event.url.searchParams.toString()
                 }
             } : {}

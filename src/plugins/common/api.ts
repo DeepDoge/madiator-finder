@@ -5,8 +5,8 @@ export async function request<T extends ApiRequest>(apiPath: string, data: T['TY
 {
     if (typeof window === 'undefined') return
 
-    const url = new URL(`${location.protocol}//${location.host}`)
-    url.pathname = `/api${apiPath}`
+    const url = new URL(`${location.protocol}//${location.host}/api${apiPath}`)
+    // url.pathname = ``
     url.searchParams.set('data', JSON.stringify(data))
     const profile: Profile = null;
     if (profile?.publicKey) url.searchParams.set('publicKey', profile.publicKey)
