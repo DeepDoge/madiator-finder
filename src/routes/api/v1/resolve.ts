@@ -1,8 +1,10 @@
+import { verify } from "$/plugins/common/crypto"
 import { prisma } from "$/plugins/prisma"
 import { apiRequest } from "$/routes/api/_api"
 import { string } from "$modules/cute-struct/src/cute-struct/fields/string"
 import { many } from "$modules/cute-struct/src/cute-struct/many"
 import { struct } from "$modules/cute-struct/src/cute-struct/struct"
+import type { Profile } from "@prisma/client"
 import crypto from 'crypto'
 
 const resolveYtIdParams = struct({
@@ -15,26 +17,13 @@ const resolveYtIdParams = struct({
     }).asFieldLike({ optional: true })
 })
 
-async function verifySignature(keys: Parameters<typeof task>['0']['keys']): Promise<boolean>
-{
-    return crypto.verify(
-        "sha256",
-        Buffer.from(keys.data),
-        {
-            key: Buffer.from(keys.publicKey),
-            padding: crypto.constants.RSA_PKCS1_PSS_PADDING,
-        },
-        Buffer.from(keys.signature)
-    )
-}
-
 export const resolveYtRequest = apiRequest()
     (async ({ params, profile, event }) =>
     {
         const p = resolveYtIdParams.verify(Object.assign(
             {
-                channelIds: event.params['channel_ids']?.split(','),
-                videoIds: event.params['video_ids']?.split(','),
+                channelIds: (event.params['channel_ids'] || null)?.split(','),
+                videoIds: (event.params['video_ids'] || null)?.split(','),
             },
             event.params.publicKey && event.params.signature ? {
                 keys: {
@@ -56,7 +45,7 @@ export const resolveYtRequest = apiRequest()
                             searchParam: 'channel_ids'
                         },
                         keys: p.keys
-                    })
+                    }, profile)
                 } : {},
             p.videoIds?.length > 0 ?
                 {
@@ -68,7 +57,7 @@ export const resolveYtRequest = apiRequest()
                             searchParam: 'video_ids'
                         },
                         keys: p.keys
-                    })
+                    }, profile)
                 } : {}
         ) as { channels?: Record<string, string>, videos?: Record<string, string> }
     })
@@ -82,7 +71,7 @@ async function task(params: {
     },
     ids: string[],
     keys?: typeof resolveYtIdParams['TYPE']['keys']['TYPE']
-})
+}, profile: Profile)
 {
     const odyseeApiUrl = new URL(`https://api.odysee.com/yt/resolve`)
     const cache = Object.fromEntries((await prisma.lbryUrlMap.findMany({
@@ -101,34 +90,31 @@ async function task(params: {
 
         await (await fetch(odyseeApiUrl.href)).json().then(async (response) =>
         {
-            const responseIds: Record<string, string> = response.data[params.odyseeApi.responsePath]
-
-            let publicKey = null
-            if (params.keys && verifySignature(params.keys))
-            {
-                const profile = await prisma.profile.findUnique({ where: { publicKey } })
-                if (!profile) await prisma.profile.create({ data: { publicKey } })
-                publicKey = params.keys.publicKey
-                await prisma.profile.update({
-                    data: { score: profile.score + 1 },
-                    where: { publicKey }
-                })
-            }
+            const responseIdEntries = Object.entries(response.data[params.odyseeApi.responsePath]).filter(([id, lbryUrl]) => lbryUrl) as [string, string][]
 
             await prisma.lbryUrlMap.createMany({
-                data: Object.entries(responseIds).filter(([id, lbryUrl]) => lbryUrl).map(([id, lbryUrl]) =>
+                data: responseIdEntries.map(([id, lbryUrl]) =>
                 {
                     const data: Parameters<typeof prisma.lbryUrlMap.createMany>['0']['data'] = {
                         id,
                         lbryUrl,
                         scrapDate: Date.now(),
-                        profilePublicKey: publicKey,
+                        profilePublicKey: profile?.publicKey,
                         type: params.type
                     }
                     return data
                 })
             })
-            Object.assign(cache, responseIds)
+
+            if (profile)
+            {
+                await prisma.profile.update({
+                    data: { score: profile.score + responseIdEntries.length },
+                    where: { publicKey: profile.publicKey }
+                })
+            }
+
+            Object.assign(cache, Object.fromEntries(responseIdEntries))
         })
     }
 

@@ -1,5 +1,6 @@
 
-  import { prisma } from "$/plugins/prisma"
+  import { verify } from "$/plugins/common/crypto"
+import { prisma } from "$/plugins/prisma"
 import type { Profile } from "@prisma/client"
 import type { RequestEvent, RequestHandlerOutput } from "@sveltejs/kit/types/internal"
 
@@ -27,9 +28,13 @@ export function apiRequest<Params>(requireAuth = false)
             },
             async requestHandler(event: RequestEvent)
             {
-                const profile = event.params.publicKey && await prisma.profile.findUnique({
-                    where: { publicKey: event.params.publicKey }
-                })
+                if (event.params.keys)
+                {
+                    if (!verify(event.url.searchParams.toString(), event.params.signature, event.params.publicKey))
+                        throw new Error()
+                    var profile = await prisma.profile.findUnique({ where: { publicKey: event.params.publicKey } })
+                    if (!profile) profile = await prisma.profile.create({ data: { publicKey: event.params.publicKey } })
+                }
 
                 if (requireAuth && !profile) throw new Error();
 
