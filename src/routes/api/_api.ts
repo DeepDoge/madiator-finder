@@ -33,7 +33,7 @@ export function apiRequest<Params>(requireAuth = false)
 
                 if (requireAuth && !profile) throw new Error();
 
-                const params = r.deserialize(event.params.data)
+                const params = event.params.data && r.deserialize(event.params.data)
 
                 try
                 {
