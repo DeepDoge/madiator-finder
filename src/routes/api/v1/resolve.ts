@@ -33,8 +33,8 @@ export const resolveYtRequest = apiRequest()
     {
         const p = resolveYtIdParams.verify(Object.assign(
             {
-                channelIds: event.params['channel-ids']?.split(','),
-                videoIds: event.params['video-ids']?.split(','),
+                channelIds: event.params['channel_ids']?.split(','),
+                videoIds: event.params['video_ids']?.split(','),
             },
             event.params.publicKey && event.params.signature ? {
                 keys: {

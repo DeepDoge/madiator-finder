@@ -38,10 +38,10 @@
             const searchParams = new URLSearchParams()
             switch (data.type) {
                 case "channel":
-                    searchParams.set("channel-ids", data.id);
+                    searchParams.set("channel_ids", data.id);
                     break;
                 case "video":
-                    searchParams.set("video-ids", data.id);
+                    searchParams.set("video_ids", data.id);
                     break;
                 default:
                     throw new Error();
