@@ -198,14 +198,18 @@
     }
 
     .result {
-        padding: calc(var(--padding) * 2)
+        display: grid;
+        padding: calc(var(--padding) * 2);
     }
-
     .result a {
         background: var(--color-gradient-1);
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
 
