@@ -91,7 +91,7 @@
         </div>
     </section>
 {:else if result === ''}
-    No Result    
+    No Result   
 {:else if loading}
     ...
 {:else if errorMessage}
