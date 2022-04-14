@@ -49,7 +49,7 @@
 
             const r = await request<typeof resolveYtRequest>(`/v1/resolve?${searchParams.toString()}`, {});
 
-            result = r.channels?.[data.id] ?? r.videos?.[data.id];
+            result = r.channels?.[data.id] ?? r.videos?.[data.id] ?? '';
             (document.querySelector("#search-result") as any).focus();
         } catch (error) {
             errorMessage = error.message;
@@ -90,6 +90,8 @@
             <a id="search-result" href="https://odysee.com/{result}" target="_blank" alt="Search result">{result}</a>
         </div>
     </section>
+{:else if result === ''}
+    No Result    
 {:else if loading}
     ...
 {:else if errorMessage}
