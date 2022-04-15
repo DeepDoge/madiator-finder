@@ -28,7 +28,7 @@
         display: flex;
         height: 100%;
         align-items: center;
-        justify-content: center;
+        justify-content: end;
         flex-wrap: wrap;
         word-wrap: break-word;
 
