@@ -27,7 +27,7 @@
                 <div class="background" />
                 <div class="rank">#{i + 1}</div>
                 <div class="details">
-                    <div class="nickname">{row.nickname ?? "..." + row.publicKey.substring(row.publicKey.length - 32)}</div>
+                    <div class="nickname">{row.nickname ?? row.publicKey.substring(row.publicKey.length - 64, row.publicKey.length - 32)}</div>
                     <div class="score">Score: {row.score}</div>
                 </div>
             </li>

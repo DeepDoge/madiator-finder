@@ -1,11 +1,11 @@
 <script lang="ts">
-    import Search from "$lib/App/Search.svelte";
-</script>
+    import Leaderboard from "$lib/App/Leaderboard.svelte";
+    </script>
 
 <div class="content">
-    <section id="section-search">
-        <h2>Search</h2>
-        <Search />
+    <section id="section-leaderboard">
+        <h2>Leaderboard</h2>
+        <Leaderboard />
     </section>
 </div>
 
@@ -16,11 +16,10 @@
         font-size: 1.5em;
     }
 
-    #section-search {
+    #section-leaderboard {
         display: grid;
         place-content: center;
-        grid-template-columns: min(100%, 40em);
-        min-height: 50vh;
+        grid-template-columns: min(100%, 35em);
         padding: var(--padding-outer);
         gap: var(--padding);
     }

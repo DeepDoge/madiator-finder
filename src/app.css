@@ -5,8 +5,8 @@
     --padding: .5em;
     --border-radius: .5em;
     --transition: linear .25s;
-    --color-master: #67ca5e;
-    --color-slave: #1a9671;
+    --color-master: #cf542c;
+    --color-slave: #9d2530;
     --color-error: rgb(245, 81, 69);
     --color-gradient-0: linear-gradient(130deg, var(--color-master), var(--color-slave));
     --color-gradient-1: linear-gradient(130deg, #ff7a18, #af002d 41.07%, #319197 76.05%);

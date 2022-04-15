@@ -89,7 +89,7 @@
 </div>
 <Counters />
 {#if result}
-    <section>
+    <section class="result-section">
         <h2>Result:</h2>
         <div class="result">
             <div class="glow" />
@@ -201,6 +201,11 @@
 
     .error-message {
         color: var(--color-error);
+    }
+
+    .result-section {
+        display: grid;
+        gap: var(--padding)
     }
 
     .result {
