@@ -41,6 +41,8 @@ import Navigation from "$lib/App/Navigation.svelte";
         justify-items: center;
         gap: 1em;
 
+        background: var(--color-mode);
+
         z-index: 1;
     } 
     header > h1 {
