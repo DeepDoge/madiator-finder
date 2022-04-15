@@ -3,6 +3,7 @@
     import type { getLeaderboardRequest } from "$/routes/api/v1/profile/leaderboard";
     import type { Writable } from "svelte/store";
     import { writable } from "svelte/store";
+    import BlindOnly from "./BlindOnly.svelte";
 
     const leaderboardRows: Writable<typeof getLeaderboardRequest["TYPE"]["OUT"]> = writable(null);
     export async function updateLeaderboard() {
@@ -17,7 +18,7 @@
     task();
 </script>
 
-<ul class="rows">
+<ol class="rows">
     {#if !$leaderboardRows}
         ...
     {:else}
@@ -26,14 +27,19 @@
                 <div class="glow" />
                 <div class="background" />
                 <div class="rank">#{i + 1}</div>
-                <div class="details">
-                    <div class="nickname">{row.nickname ?? row.publicKey.substring(row.publicKey.length - 64, row.publicKey.length - 32)}</div>
+                <article class="details">
+                    <div class="nickname">
+                        <BlindOnly>
+                            {row.nickname ? "nickname" : "public key"}
+                        </BlindOnly>
+                        {row.nickname ?? row.publicKey.substring(row.publicKey.length - 64, row.publicKey.length - 32)}
+                    </div>
                     <div class="score">Score: {row.score}</div>
-                </div>
+                </article>
             </li>
         {/each}
     {/if}
-</ul>
+</ol>
 
 <style>
     .rows {
@@ -93,7 +99,7 @@
         border-radius: calc(var(--border-radius) / 2);
         filter: opacity(var(--background-opacity));
     }
-    
+
     .glow {
         animation: background-anim 5s linear infinite alternate;
         background-repeat: repeat;

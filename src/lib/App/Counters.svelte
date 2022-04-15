@@ -4,6 +4,7 @@
     import Row from "$lib/Row/Row.svelte";
     import type { Writable } from "svelte/store";
     import { writable } from "svelte/store";
+    import BlindOnly from "./BlindOnly.svelte";
 
     let counters: Writable<typeof getCountersRequest["TYPE"]["OUT"]> = writable(null);
     export async function updateCounters() {
@@ -21,7 +22,10 @@
 <script lang="ts">
 </script>
 
-<div class="counters" aria-label="number of videos and channels we have on our database">
+<div class="counters">
+    <BlindOnly>
+        number of videos and channels we have on our database
+    </BlindOnly>
     <Row type="fit" idealSize="10em">
         <div class="counter">Videos: {$counters?.videos ?? "..."}</div>
         <div class="counter">Channels: {$counters?.channels ?? "..."}</div>

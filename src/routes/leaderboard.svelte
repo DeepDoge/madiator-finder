@@ -5,6 +5,7 @@
 <div class="content">
     <section id="section-leaderboard">
         <h2>Leaderboard</h2>
+        <p>Top contributers</p>
         <Leaderboard />
     </section>
 </div>
@@ -14,6 +15,10 @@
         display: grid;
         gap: 1em;
         font-size: 1.5em;
+    }
+
+    p {
+        font-size: smaller;
     }
 
     #section-leaderboard {

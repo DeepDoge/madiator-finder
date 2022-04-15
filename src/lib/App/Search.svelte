@@ -1,8 +1,9 @@
 <script lang="ts">
     import { request } from "$/plugins/common/api";
     import type { resolveYtRequest } from "$/routes/api/v1/resolve";
+    import BlindOnlyLink from "./BlindOnlyLink.svelte";
     import Counters, { updateCounters } from "./Counters.svelte";
-    import Leaderboard, { updateLeaderboard } from "./Leaderboard.svelte";
+    import { updateLeaderboard } from "./Leaderboard.svelte";
 
     function parseUrl(url: URL): { type: "video" | "channel"; id: string } {
         console.log(url, url.href);
@@ -27,11 +28,10 @@
             };
         }
 
-        throw new Error();
+        throw new Error("Invalid URL");
     }
 
     async function search(href: string) {
-        result = null;
         loading = true;
         try {
             const url = new URL(href);
@@ -50,23 +50,26 @@
 
             const r = await request<typeof resolveYtRequest>(`/v1/resolve?${searchParams.toString()}`, {});
 
-            result = r.channels?.[data.id] ?? r.videos?.[data.id] ?? "";
+            result = r.channels?.[data.id] ?? r.videos?.[data.id] ?? EMPTY;
 
-            if (result)
-            {
-                updateCounters.call(null)
-                updateLeaderboard.call(null)
-                (document.querySelector("#search-result") as any).focus();
+            if (result) {
+                updateCounters.call(null);
+                updateLeaderboard.call(null);
             }
         } catch (error) {
-            errorMessage = error.message;
+            result = error;
         } finally {
             loading = false;
+            await new Promise<void>((r) => setTimeout(r, 1000));
+            document.querySelector<HTMLAnchorElement>("#search-result").focus();
         }
     }
-    let errorMessage: string;
+
     let href: string = null;
-    let result: string;
+
+    const EMPTY = Symbol();
+    let result: string | Error | typeof EMPTY;
+
     let loading = false;
 </script>
 
@@ -76,10 +79,16 @@
             <div class="glow" />
             <div class="border" />
             <div class="background" />
-            <input type="url" bind:value={href} aria-label="enter youtube url to search it on LBRY" placeholder="YouTube Channel or Video URL" />
+            <input
+                id="search-field"
+                type="url"
+                bind:value={href}
+                aria-label="enter youtube u.r.l to search it on LBRY"
+                placeholder="YouTube Channel or Video URL"
+            />
         </div>
         <div class="actions">
-            <button aria-label="Search YouTube URL">
+            <button>
                 <div class="glow" />
                 <div class="background" />
                 <span>Search</span>
@@ -88,21 +97,26 @@
     </form>
 </div>
 <Counters />
+
 {#if result}
-    <section class="result-section">
-        <h2>Result:</h2>
-        <div class="result">
+    <BlindOnlyLink href="#search-field">go back to search field</BlindOnlyLink>
+{/if}
+
+{#if result instanceof Error}
+    <samp id="search-result" tabindex="0" class="error-message">{result.message}</samp>
+{:else if result === EMPTY}
+    <span id="search-result" tabindex="0">No Result</span>
+{:else if result}
+    <article class="result">
+        <h2 id="search-result" tabindex="0">Result:</h2>
+        <div class="result-details">
             <div class="glow" />
             <div class="background" />
-            <a id="search-result" href="https://odysee.com/{result}" target="_blank" alt="Search result">{result}</a>
+            <a href="https://odysee.com/{result}" target="_blank" title="LBRY video URL">{result}</a>
         </div>
-    </section>
-{:else if result === ""}
-    No Result
-{:else if loading}
-    ...
-{:else if errorMessage}
-    <samp class="error-message">{errorMessage}</samp>
+    </article>
+{:else}
+    <!-- Nothing has been searched yet -->
 {/if}
 
 <style>
@@ -193,12 +207,12 @@
         color: var(--color-error);
     }
 
-    .result-section {
+    .result {
         display: grid;
-        gap: var(--padding)
+        gap: var(--padding);
     }
 
-    .result {
+    .result-details {
         --border-width: 0px;
         --glow-blur: 0.5em;
         --glow-brightness: 1;
@@ -206,11 +220,11 @@
         --background-opacity: 0.95;
     }
 
-    .result {
+    .result-details {
         display: grid;
         padding: calc(var(--padding) * 2);
     }
-    .result a {
+    .result-details a {
         background: var(--color-gradient-1);
         background-clip: text;
         -webkit-background-clip: text;

@@ -1,34 +1,35 @@
 {
-  "name": "madiator-scrap",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-    "prisma:migrate": "prisma migrate dev --name init",
-    "prisma:generate": "prisma generate",
-    "prisma:studio": "prisma studio",
-    "postinstall": "npm run prisma:generate"
-  },
-  "devDependencies": {
-    "@fontsource/fira-mono": "^4.2.2",
-    "@lukeed/uuid": "^2.0.0",
-    "@prisma/client": "^3.11.0",
-    "@sveltejs/adapter-node": "^1.0.0-next.73",
-    "@sveltejs/kit": "^1.0.0-next.303",
-    "@types/big.js": "^6.1.1",
-    "@types/cookie": "^0.4.0",
-    "big.js": "^6.1.1",
-    "cookie": "^0.4.1",
-    "svelte": "^3.34.0",
-    "svelte-check": "^2.0.0",
-    "svelte-icons": "^2.1.0",
-    "svelte-intersection-observer": "^0.7.0",
-    "svelte-preprocess": "^4.0.0",
-    "tslib": "^2.0.0",
-    "typescript": "^4.0.0"
-  },
-  "type": "module"
+    "name": "madiator-scrap",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "svelte-kit dev",
+        "dev:host": "svelte-kit dev --host",
+        "build": "svelte-kit build",
+        "preview": "svelte-kit preview",
+        "check": "svelte-check --tsconfig ./tsconfig.json",
+        "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+        "prisma:migrate": "prisma migrate dev --name init",
+        "prisma:generate": "prisma generate",
+        "prisma:studio": "prisma studio",
+        "postinstall": "npm run prisma:generate"
+    },
+    "devDependencies": {
+        "@fontsource/fira-mono": "^4.2.2",
+        "@lukeed/uuid": "^2.0.0",
+        "@prisma/client": "^3.11.0",
+        "@sveltejs/adapter-node": "^1.0.0-next.73",
+        "@sveltejs/kit": "^1.0.0-next.303",
+        "@types/big.js": "^6.1.1",
+        "@types/cookie": "^0.4.0",
+        "big.js": "^6.1.1",
+        "cookie": "^0.4.1",
+        "svelte": "^3.34.0",
+        "svelte-check": "^2.0.0",
+        "svelte-icons": "^2.1.0",
+        "svelte-intersection-observer": "^0.7.0",
+        "svelte-preprocess": "^4.0.0",
+        "tslib": "^2.0.0",
+        "typescript": "^4.0.0"
+    },
+    "type": "module"
 }
