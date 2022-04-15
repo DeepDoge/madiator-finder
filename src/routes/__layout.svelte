@@ -41,8 +41,6 @@ import Navigation from "$lib/App/Navigation.svelte";
         justify-items: center;
         gap: 1em;
 
-        background: var(--color-mode);
-
         z-index: 1;
     } 
     header > h1 {
@@ -59,6 +57,8 @@ import Navigation from "$lib/App/Navigation.svelte";
         min-width: min(var(--center-at), 100%);
         flex-grow: 10000000000000000000000;
         font-size: larger;
+        display: grid;
+        justify-items: end;
     }
 
 
