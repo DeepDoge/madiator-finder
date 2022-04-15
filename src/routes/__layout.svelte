@@ -31,19 +31,18 @@ import Navigation from "$lib/App/Navigation.svelte";
     }
     header {
         position: sticky;
-        top: 0;
         inset: 0;
         bottom: unset;
         padding: 0.75em;
-    }
 
-    header {
-        display: flex;
+         display: flex;
         flex-wrap: wrap;
         --center-at: 20rem;
         justify-items: center;
         gap: 1em;
-    }
+
+        z-index: 1;
+    } 
     header > h1 {
         display: grid;
         justify-items: center;
