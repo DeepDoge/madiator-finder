@@ -79,11 +79,6 @@
         --background-opacity: 0.95;
     }
 
-    .row,
-    .row > * {
-        position: relative;
-    }
-
     .glow {
         position: absolute;
         inset: calc(-1 * var(--border-width));

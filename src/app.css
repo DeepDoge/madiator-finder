@@ -35,6 +35,7 @@ body {
 *::after,
 *::before {
     box-sizing: border-box;
+    position: relative;
 }
 
 h1,

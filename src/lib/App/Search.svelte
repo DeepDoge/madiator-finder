@@ -134,11 +134,6 @@
         border: solid var(--border-width) transparent;
     }
 
-    .field,
-    .field > * {
-        position: relative;
-    }
-
     @keyframes background-anim {
         0% {
             background-size: 100%;
@@ -178,11 +173,6 @@
         --background-opacity: 0.95;
     }
 
-    button,
-    button > * {
-        position: relative;
-    }
-
     button:hover,
     button:focus-within {
         filter: brightness(1.25);
@@ -214,10 +204,6 @@
         --glow-brightness: 1;
         --background: var(--color-mode);
         --background-opacity: 0.95;
-    }
-    .result,
-    .result > * {
-        position: relative;
     }
 
     .result {
