@@ -1,27 +1,30 @@
-<script lang="ts">
+<script lang="ts" context="module">
     import { request } from "$/plugins/common/api";
     import type { getCountersRequest } from "$/routes/api/v1/counters";
     import Row from "$lib/Row/Row.svelte";
-    import { onDestroy, onMount } from "svelte";
+    import type { Writable } from "svelte/store";
+    import { writable } from "svelte/store";
 
-    let counters: typeof getCountersRequest["TYPE"]["OUT"] = null;
-
-    async function update() {
-        counters = await request<typeof getCountersRequest>("/v1/counters", {});
+    let counters: Writable<typeof getCountersRequest["TYPE"]["OUT"]> = writable(null);
+    export async function updateCounters() {
+        counters.set(await request<typeof getCountersRequest>("/v1/counters", {}));
     }
+    async function task() {
+        while (true) {
+            await updateCounters();
+            await new Promise((r) => setTimeout(r, 20000));
+        }
+    }
+    task();
+</script>
 
-    let interval: NodeJS.Timeout;
-    onMount(() => {
-        update();
-        interval = setInterval(update, 20000);
-    });
-    onDestroy(() => clearInterval(interval));
+<script lang="ts">
 </script>
 
 <div class="counters" aria-label="number of videos and channels we have on our database">
     <Row type="fit" idealSize="10em">
-        <div class="counter">Videos: {counters?.videos ?? "..."}</div>
-        <div class="counter">Channels: {counters?.channels ?? "..."}</div>
+        <div class="counter">Videos: {$counters?.videos ?? "..."}</div>
+        <div class="counter">Channels: {$counters?.channels ?? "..."}</div>
     </Row>
 </div>
 

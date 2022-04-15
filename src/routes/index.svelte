@@ -23,14 +23,18 @@
 
     #section-search {
         display: grid;
-        align-content: center;
-        justify-content: center;
+        place-content: center;
         grid-template-columns: min(100%, 40em);
         min-height: 100vh;
         padding: var(--padding-outer);
+        gap: var(--padding);
     }
 
     #section-leaderboard {
-        padding: var(--out-padding);
+        display: grid;
+        place-content: center;
+        grid-template-columns: min(100%, 35em);
+        padding: var(--padding-outer);
+        gap: var(--padding);
     }
 </style>

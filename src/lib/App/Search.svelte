@@ -1,7 +1,8 @@
 <script lang="ts">
     import { request } from "$/plugins/common/api";
     import type { resolveYtRequest } from "$/routes/api/v1/resolve";
-    import Counters from "./Counters.svelte";
+    import Counters, { updateCounters } from "./Counters.svelte";
+    import Leaderboard, { updateLeaderboard } from "./Leaderboard.svelte";
 
     function parseUrl(url: URL): { type: "video" | "channel"; id: string } {
         console.log(url, url.href);
@@ -50,7 +51,13 @@
             const r = await request<typeof resolveYtRequest>(`/v1/resolve?${searchParams.toString()}`, {});
 
             result = r.channels?.[data.id] ?? r.videos?.[data.id] ?? "";
-            (document.querySelector("#search-result") as any).focus();
+
+            if (result)
+            {
+                updateCounters.call(null)
+                updateLeaderboard.call(null)
+                (document.querySelector("#search-result") as any).focus();
+            }
         } catch (error) {
             errorMessage = error.message;
         } finally {
