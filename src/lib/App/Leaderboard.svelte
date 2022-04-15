@@ -11,9 +11,9 @@
     {:then rows}
         {#each rows as row, i}
             <li class="row">
-                <div class="rank">#{i}</div>
+                <div class="rank">#{i + 1}</div>
                 <div class="details">
-                    <div class="nickname">{row.nickname}</div>
+                    <div class="nickname">{row.nickname ?? row.publicKey}</div>
                     <div class="score">Score: {row.score}</div>
                 </div>
             </li>

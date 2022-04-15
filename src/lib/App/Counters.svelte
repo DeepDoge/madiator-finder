@@ -1,10 +1,8 @@
 <script lang="ts">
     import { request } from "$/plugins/common/api";
-
     import type { getCountersRequest } from "$/routes/api/v1/counters";
-
     import Row from "$lib/Row/Row.svelte";
-import { onDestroy, onMount } from "svelte";
+    import { onDestroy, onMount } from "svelte";
 
     let counters: typeof getCountersRequest["TYPE"]["OUT"] = null;
 
@@ -13,18 +11,17 @@ import { onDestroy, onMount } from "svelte";
     }
 
     let interval: NodeJS.Timeout;
-    onMount(() => 
-    {
-        update()
-        interval = setInterval(update, 20000)
-    })
-    onDestroy(() => clearInterval(interval))
+    onMount(() => {
+        update();
+        interval = setInterval(update, 20000);
+    });
+    onDestroy(() => clearInterval(interval));
 </script>
 
 <div class="counters" aria-label="number of videos and channels we have on our database">
     <Row type="fit" idealSize="10em">
-        <div class="counter">Videos: {counters?.videos ?? '...'}</div>
-        <div class="counter">Channels: {counters?.channels ?? '...'}</div>
+        <div class="counter">Videos: {counters?.videos ?? "..."}</div>
+        <div class="counter">Channels: {counters?.channels ?? "..."}</div>
     </Row>
 </div>
 

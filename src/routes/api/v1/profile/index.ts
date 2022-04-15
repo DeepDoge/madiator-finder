@@ -5,7 +5,8 @@ import type { PrismaClient } from "@prisma/client"
 export const getProfileRequest = apiRequest<
     Parameters<PrismaClient['profile']['findUnique']>[0]['where']
 >()
-(async ({ params, profile }) => {
-    return await prisma.profile.findUnique({ where: { publicKey: params.publicKey } })
-})
+    (async ({ params, profile }) =>
+    {
+        return await prisma.profile.findUnique({ where: { publicKey: params.publicKey } })
+    })
 export const get = getProfileRequest.requestHandler

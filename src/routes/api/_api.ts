@@ -1,10 +1,10 @@
 
-  import { verify } from "$/plugins/common/crypto"
+import { verify } from "$/plugins/common/crypto"
 import { prisma } from "$/plugins/prisma"
 import type { Profile } from "@prisma/client"
 import type { RequestEvent, RequestHandlerOutput } from "@sveltejs/kit/types/internal"
 
-export interface ApiRequest<Params extends Record<string ,any> = Record<string ,any>, Returns = any>
+export interface ApiRequest<Params extends Record<string, any> = Record<string, any>, Returns = any>
 {
     TYPE: { IN: Params, OUT: Returns }
     serialize(data: Params): string
@@ -28,23 +28,23 @@ export function apiRequest<Params>(requireAuth = false)
             },
             async requestHandler(event: RequestEvent)
             {
-                if (event.params.keys)
-                {
-                    const keys = JSON.parse(event.params.keys)
-                    const data = new URLSearchParams(event.url.searchParams)
-                    data.delete('keys')
-                    if (!verify(data.toString(), keys.signature, keys.publicKey))
-                        throw new Error()
-                    var profile = await prisma.profile.findUnique({ where: { publicKey: keys.publicKey } })
-                    if (!profile) profile = await prisma.profile.create({ data: { publicKey: keys.publicKey } })
-                }
-
-                if (requireAuth && !profile) throw new Error();
-
-                const params = event.params.data && r.deserialize(event.params.data)
-
                 try
                 {
+                    if (event.params.keys)
+                    {
+                        const keys = JSON.parse(event.params.keys)
+                        const data = new URLSearchParams(event.url.searchParams)
+                        data.delete('keys')
+                        if (!verify(data.toString(), keys.signature, keys.publicKey))
+                            throw new Error()
+                        var profile = await prisma.profile.findUnique({ where: { publicKey: keys.publicKey } })
+                        if (!profile) profile = await prisma.profile.create({ data: { publicKey: keys.publicKey } })
+                    }
+
+                    if (requireAuth && !profile) throw new Error()
+
+                    const params = event.params.data && r.deserialize(event.params.data)
+
                     return {
                         status: 200,
                         headers: {
@@ -55,7 +55,6 @@ export function apiRequest<Params>(requireAuth = false)
                 }
                 catch (err)
                 {
-                    console.error(err)
                     const errRes = {
                         message: err.message,
                         stack: err.stack
@@ -65,7 +64,7 @@ export function apiRequest<Params>(requireAuth = false)
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: errRes.message
+                        body: JSON.stringify(errRes)
                     } as any
                 }
             }

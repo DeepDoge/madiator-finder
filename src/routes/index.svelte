@@ -1,5 +1,4 @@
 <script lang="ts">
-    import Counters from "$lib/App/Counters.svelte";
     import Leaderboard from "$lib/App/Leaderboard.svelte";
     import Search from "$lib/App/Search.svelte";
 </script>

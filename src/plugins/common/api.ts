@@ -8,7 +8,7 @@ export async function request<T extends ApiRequest>(apiPath: string, data: T['TY
     const url = new URL(`${location.protocol}//${location.host}/api${apiPath}`)
     // url.pathname = ``
     url.searchParams.set('data', JSON.stringify(data))
-    const profile: Profile = null;
+    const profile: Profile = null
     if (profile?.publicKey) url.searchParams.set('publicKey', profile.publicKey)
     return await (await fetch(url.href, { method })).json() as T['TYPE']['OUT']
 }

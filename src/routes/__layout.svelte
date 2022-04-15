@@ -16,7 +16,7 @@
 <style>
     #layout {
         background: var(--color-mode);
-        color: var(--color-mode-inverse)
+        color: var(--color-mode-inverse);
     }
     header {
         position: absolute;
