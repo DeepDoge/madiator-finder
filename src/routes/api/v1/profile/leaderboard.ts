@@ -7,7 +7,7 @@ export const getLeaderboardRequest = apiRequest<
     (async ({ params, profile }) =>
     {
         return await prisma.profile.findMany({
-            orderBy: { score: 'asc' },
+            orderBy: { score: 'desc' },
             take: 100
         })
     })
