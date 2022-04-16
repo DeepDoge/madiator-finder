@@ -1,7 +1,6 @@
 <script lang="ts">
     import "$/app.css";
-import BlindOnly from "$lib/App/BlindOnly.svelte";
-import BlindOnlyLink from "$lib/App/BlindOnlyLink.svelte";
+    import BlindOnlyLink from "$lib/App/BlindOnlyLink.svelte";
     import Navigation from "$lib/App/Navigation.svelte";
 </script>
 
@@ -10,7 +9,7 @@ import BlindOnlyLink from "$lib/App/BlindOnlyLink.svelte";
         go to the main content
     </BlindOnlyLink>
     <header>
-        <h1><a href="/" alt="Main Page">Madiator Finder</a></h1>
+        <a href="/" alt="Main Page" id="logo">Madiator Finder</a>
         <Navigation
             name="Main Navigation"
             items={[
@@ -40,9 +39,11 @@ import BlindOnlyLink from "$lib/App/BlindOnlyLink.svelte";
     #layout {
         background: var(--color-mode);
         color: var(--color-mode-inverse);
+        font-size: 1.5em;
     }
     header {
-        padding: 0.75em;
+        font-size: clamp(.9em, 5vw, 1.25em);
+        padding: var(--padding);
 
         display: flex;
         flex-wrap: wrap;
@@ -52,12 +53,14 @@ import BlindOnlyLink from "$lib/App/BlindOnlyLink.svelte";
         background: var(--color-mode);
         border-bottom: solid .1em var(--color-master);
 
+        line-height: 1.5;
         z-index: 1;
     }
-    header > h1 {
+    header #logo {
         display: grid;
         justify-items: center;
-        font-size: clamp(1.5em, 10vw, 2.5em);
+        font-size: 2em;
+        line-height: 1;
     }
 
     header > :global(*):nth-child(1) {
@@ -67,7 +70,6 @@ import BlindOnlyLink from "$lib/App/BlindOnlyLink.svelte";
     header > :global(*):nth-child(2) {
         min-width: min(var(--center-at), 100%);
         flex-grow: 10000000000000000000000;
-        font-size: larger;
         display: grid;
         justify-items: end;
     }

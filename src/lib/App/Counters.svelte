@@ -35,8 +35,7 @@
 <style>
     .counters {
         width: min(100%, 40em);
-        padding: 1em;
         text-align: center;
-        letter-spacing: clamp(0.5ch, 0.5vw, 0.75ch);
+        letter-spacing: .75ch;
     }
 </style>

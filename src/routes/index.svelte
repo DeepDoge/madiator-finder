@@ -3,20 +3,12 @@
 </script>
 
 <div class="content">
-    <section id="section-search">
-        <h2>Search</h2>
-        <Search />
-    </section>
+    <h1>Search</h1>
+    <Search />
 </div>
 
 <style>
     .content {
-        display: grid;
-        gap: 1em;
-        font-size: 1.5em;
-    }
-
-    #section-search {
         display: grid;
         place-content: center;
         grid-template-columns: min(100%, 40em);

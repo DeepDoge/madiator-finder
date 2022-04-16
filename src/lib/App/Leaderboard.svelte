@@ -61,7 +61,7 @@
     .rank {
         display: grid;
         place-items: center;
-        padding: 0.5em;
+        padding: var(--padding);
         border-right: solid 0.1em var(--g-current-color);
     }
 
@@ -69,7 +69,7 @@
         display: grid;
         justify-content: right;
         text-align: right;
-        padding: 0.5em;
+        padding: var(--padding);
     }
 
     .details > * {
@@ -106,7 +106,7 @@
     }
 
     .score {
-        font-size: 1.1em;
+        font-size: larger;
         font-weight: bold;
         text-decoration: underline;
     }

@@ -95,7 +95,6 @@
             </button>
         </div>
     </form>
-</div>
 <Counters />
 
 {#if result}
@@ -118,11 +117,12 @@
 {:else}
     <!-- Nothing has been searched yet -->
 {/if}
+</div>
 
 <style>
     .search {
-        width: 100%;
-        font-size: larger;
+        display: grid;
+        gap: 1.5em;
     }
 
     form {
@@ -130,6 +130,7 @@
         flex-wrap: wrap;
         align-content: stretch;
         gap: 0.25em;
+        font-size: larger;
     }
     .actions {
         display: grid;
