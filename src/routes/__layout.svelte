@@ -1,11 +1,12 @@
 <script lang="ts">
     import "$/app.css";
+import BlindOnly from "$lib/App/BlindOnly.svelte";
     import BlindOnlyLink from "$lib/App/BlindOnlyLink.svelte";
     import Navigation from "$lib/App/Navigation.svelte";
 </script>
 
 <div id="layout">
-    <BlindOnlyLink href="#main-content">
+    <BlindOnlyLink href="#main-start">
         go to the main content
     </BlindOnlyLink>
     <header>
@@ -25,13 +26,15 @@
         />
     </header>
     <main>
-        <div id="main-content" aria-label="main content" />
+        <BlindOnly id="main-start">
+            Start of the main content.
+        </BlindOnly>
         <slot />
     </main>
 
     <footer>
         Footer
-        <a href="#main-content" aria-label="go back to the main content">Go Top</a>
+        <a href="#main-start" aria-label="go back to the main content">Go Top</a>
     </footer>
 </div>
 

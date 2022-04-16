@@ -1,4 +1,8 @@
-<div class="blind-only" tabindex="0">
+<script lang="ts">
+    export let id: string = null
+</script>
+
+<div {id} class="blind-only" tabindex="0">
     <slot />
 </div>
 

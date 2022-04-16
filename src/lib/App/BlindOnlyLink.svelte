@@ -1,8 +1,9 @@
 <script lang="ts">
     export let href: string
+    export let id: string = null
 </script>
 
-<a {href} class="blind-only-link" tabindex="0">
+<a {href} {id} class="blind-only-link" tabindex="0">
     <slot />
 </a>
 
