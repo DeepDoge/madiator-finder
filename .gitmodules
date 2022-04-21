@@ -4,3 +4,6 @@
 [submodule "src/lib/Row"]
 	path = src/lib/Row
 	url = https://github.com/DeepDoge/svelte-responsive-row.git
+[submodule "modules/hako-ui"]
+	path = modules/hako-ui
+	url = https://github.com/DeepDoge/hako-ui.git

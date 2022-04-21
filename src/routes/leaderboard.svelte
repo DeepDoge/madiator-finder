@@ -14,7 +14,7 @@
         place-content: center;
         grid-template-columns: min(100%, 35em);
         min-height: 50vh;
-        padding: var(--padding-outer);
-        gap: var(--padding);
+        padding: var(--h-padding-page);
+        gap: var(--h-padding);
     }
 </style>

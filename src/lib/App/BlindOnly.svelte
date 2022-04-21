@@ -9,8 +9,8 @@
 <style>
     .blind-only {
         position: absolute;
-        background: var(--color-mode);
-        outline: solid 0.1em var(--color-master);
+        background: var(--h-color-mode);
+        outline: solid 0.1em var(--h-color-master);
         z-index: 999999999999;
     }
 

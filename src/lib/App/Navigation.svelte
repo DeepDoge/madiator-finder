@@ -42,13 +42,13 @@
     }
 
     a.selected {
-        color: var(--color-master)
+        color: var(--h-color-master)
     }
 
     a::after {
         content: "";
         display: block;
-        background: var(--color-gradient-1);
+        background: var(--h-color-gradient-1);
         height: .1em;
     }
 

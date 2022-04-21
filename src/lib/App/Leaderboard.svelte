@@ -61,7 +61,7 @@
     .rank {
         display: grid;
         place-items: center;
-        padding: var(--padding);
+        padding: var(--h-padding);
         border-right: solid 0.1em var(--g-current-color);
     }
 
@@ -69,7 +69,7 @@
         display: grid;
         justify-content: right;
         text-align: right;
-        padding: var(--padding);
+        padding: var(--h-padding);
     }
 
     .details > * {
@@ -81,14 +81,14 @@
         --border-width: 0px;
         --glow-blur: 0.2em;
         --glow-brightness: 0.75;
-        --background: var(--color-mode);
+        --background: var(--h-color-mode);
         --background-opacity: 0.95;
     }
 
     .glow {
         position: absolute;
         inset: calc(-1 * var(--border-width));
-        background: var(--color-gradient-1);
+        background: var(--h-color-gradient-1);
         filter: blur(var(--glow-blur)) brightness(var(--glow-brightness));
     }
 

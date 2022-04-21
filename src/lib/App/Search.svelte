@@ -1,6 +1,7 @@
 <script lang="ts">
     import { request } from "$/plugins/common/api";
     import type { resolveYtRequest } from "$/routes/api/v1/resolve";
+    import Hako from "$modules/hako-ui/Hako.svelte";
     import BlindOnlyLink from "./BlindOnlyLink.svelte";
     import Counters, { updateCounters } from "./Counters.svelte";
     import { updateLeaderboard } from "./Leaderboard.svelte";
@@ -76,9 +77,7 @@
 <div class="search" class:loading>
     <form on:submit|preventDefault={() => search(href)} name="Search">
         <div class="field">
-            <div class="glow" />
-            <div class="border" />
-            <div class="background" />
+            <Hako />
             <input
                 id="search-field"
                 type="url"
@@ -89,34 +88,32 @@
         </div>
         <div class="actions">
             <button>
-                <div class="glow" />
-                <div class="background" />
+                <Hako />
                 <span>Search</span>
             </button>
         </div>
     </form>
-<Counters />
+    <Counters />
 
-{#if result}
-    <BlindOnlyLink href="#search-field">go back to search field</BlindOnlyLink>
-{/if}
+    {#if result}
+        <BlindOnlyLink href="#search-field">go back to search field</BlindOnlyLink>
+    {/if}
 
-{#if result instanceof Error}
-    <samp id="search-result" tabindex="0" class="error-message">{result.message}</samp>
-{:else if result === EMPTY}
-    <span id="search-result" tabindex="0">No Result</span>
-{:else if result}
-    <article class="result">
-        <h2 id="search-result" tabindex="0">Result:</h2>
-        <div class="result-details">
-            <div class="glow" />
-            <div class="background" />
-            <a href="https://odysee.com/{result}" target="_blank" title="LBRY video URL">{result}</a>
-        </div>
-    </article>
-{:else}
-    <!-- Nothing has been searched yet -->
-{/if}
+    {#if result instanceof Error}
+        <samp id="search-result" tabindex="0" class="error-message">{result.message}</samp>
+    {:else if result === EMPTY}
+        <span id="search-result" tabindex="0">No Result</span>
+    {:else if result}
+        <article class="result">
+            <h2 id="search-result" tabindex="0">Result:</h2>
+            <div class="result-details">
+                <Hako />
+                <a href="https://odysee.com/{result}" target="_blank" title="LBRY video URL">{result}</a>
+            </div>
+        </article>
+    {:else}
+        <!-- Nothing has been searched yet -->
+    {/if}
 </div>
 
 <style>
@@ -141,12 +138,8 @@
     .field {
         flex-grow: 100000000000000;
         min-width: min(10em, 100%);
-        --border-width: 0.25em;
-        --glow-blur: 0.5em;
-        --glow-brightness: 0.75;
-        --background: var(--color-mode);
-        --background-opacity: 1;
-        border: solid var(--border-width) transparent;
+        --h-border-width: 0.25em;
+        border: solid var(--h-border-width) transparent;
     }
 
     @keyframes background-anim {
@@ -164,28 +157,20 @@
         color: inherit;
         font-size: inherit;
         border: none;
-        padding: var(--padding);
+        padding: var(--h-padding);
     }
 
     button {
         display: block;
         background: transparent;
-        color: var(--color-mode-inverse);
+        color: var(--h-color-mode-inverse);
         font-size: inherit;
         font-weight: bold;
         border: none;
         appearance: none;
         border-radius: var(--border-radius);
-        padding: var(--padding);
+        padding: var(--h-padding);
         cursor: pointer;
-    }
-
-    button {
-        --border-width: 0px;
-        --glow-blur: 0.2em;
-        --glow-brightness: 0.75;
-        --background: var(--color-mode);
-        --background-opacity: 0.95;
     }
 
     button:hover,
@@ -205,28 +190,20 @@
     }
 
     .error-message {
-        color: var(--color-error);
+        color: var(--h-color-error);
     }
 
     .result {
         display: grid;
-        gap: var(--padding);
-    }
-
-    .result-details {
-        --border-width: 0px;
-        --glow-blur: 0.5em;
-        --glow-brightness: 1;
-        --background: var(--color-mode);
-        --background-opacity: 0.95;
+        gap: var(--h-padding);
     }
 
     .result-details {
         display: grid;
-        padding: calc(var(--padding) * 2);
+        padding: calc(var(--h-padding) * 2);
     }
     .result-details a {
-        background: var(--color-gradient-1);
+        background: var(--h-color-gradient-1);
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;
@@ -234,33 +211,5 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-    }
-
-    .glow {
-        position: absolute;
-        inset: calc(-1 * var(--border-width));
-        background: var(--color-gradient-1);
-        filter: blur(var(--glow-blur)) brightness(var(--glow-brightness));
-    }
-
-    .background {
-        position: absolute;
-        inset: 0;
-        background-color: var(--background);
-        border-radius: calc(var(--border-radius) / 2);
-        filter: opacity(var(--background-opacity));
-    }
-
-    .border {
-        position: absolute;
-        inset: calc(-1 * var(--border-width));
-        background: var(--color-gradient-1);
-        border-radius: var(--border-radius);
-    }
-
-    .glow,
-    .border {
-        animation: background-anim 5s linear infinite alternate;
-        background-repeat: repeat;
     }
 </style>
