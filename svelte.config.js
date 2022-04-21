@@ -11,11 +11,6 @@ const config = {
     kit: {
         adapter: adapter({}),
         vite: {
-            server: {
-                fs: {
-                    allow: ["/modules"]
-                }
-            },
             resolve: {
                 alias: {
                     "$": path.resolve('./src'),
