@@ -48,7 +48,7 @@
     a::after {
         content: "";
         display: block;
-        background: var(--h-color-gradient-1);
+        background: var(--h-color-gradient-0);
         height: .1em;
     }
 

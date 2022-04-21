@@ -1,34 +1,30 @@
 <script lang="ts">
-    import "$modules/hako-ui/hako.css";
     import "$/app.css";
     import BlindOnly from "$lib/App/BlindOnly.svelte";
     import BlindOnlyLink from "$lib/App/BlindOnlyLink.svelte";
     import Navigation from "$lib/App/Navigation.svelte";
-    import HakoOptions from "$modules/hako-ui/HakoOptions.svelte";
-    import Hako from "$modules/hako-ui/Hako.svelte";
+    import "$lib/hako-ui/hako.css";
+    import HakoOptions from "$lib/hako-ui/HakoOptions.svelte";
 </script>
 
 <HakoOptions>
     <div id="layout">
         <BlindOnlyLink href="#main-start">go to the main content</BlindOnlyLink>
         <header>
-            <HakoOptions borderOptions={{ radius: "0" }}>
-                <Hako />
-            </HakoOptions>
-            <a href="/" alt="Main Page" id="logo">Madiator Finder</a>
-            <Navigation
-                name="Main Navigation"
-                items={[
-                    {
-                        label: "Search",
-                        pathname: "/",
-                    },
-                    {
-                        label: "Leaderboard",
-                        pathname: "/leaderboard",
-                    },
-                ]}
-            />
+                <a href="/" alt="Main Page" id="logo">Madiator Finder</a>
+                <Navigation
+                    name="Main Navigation"
+                    items={[
+                        {
+                            label: "Search",
+                            pathname: "/",
+                        },
+                        {
+                            label: "Leaderboard",
+                            pathname: "/leaderboard",
+                        },
+                    ]}
+                />
         </header>
         <main>
             <BlindOnly id="main-start">Start of the main content.</BlindOnly>
@@ -44,23 +40,24 @@
 
 <style>
     #layout {
-        background: var(--h-color-mode);
+        background: linear-gradient(to left top, var(--h-color-mode) 25%, rgba(72, 142, 119, 0.5));
+        background-attachment: fixed;
         color: var(--h-color-mode-inverse);
         font-size: 1.5em;
     }
-    header {
-        font-size: clamp(0.9em, 5vw, 1.25em);
-        padding: var(--h-padding);
 
+    header {
+        --center-at: 20rem;
+        font-size: clamp(0.9em, 5vw, 1.25em);
+        line-height: 1.5;
+    }
+
+    header {
         display: flex;
         flex-wrap: wrap;
-        --center-at: 20rem;
         justify-items: center;
-        gap: 1em;
-        background: var(--h-color-mode);
-
-        line-height: 1.5;
-        z-index: 1;
+        gap: calc(var(--h-padding) * 2);
+        padding: var(--h-padding);
     }
     header #logo {
         display: grid;

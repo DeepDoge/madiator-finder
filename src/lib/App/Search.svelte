@@ -1,7 +1,7 @@
 <script lang="ts">
     import { request } from "$/plugins/common/api";
     import type { resolveYtRequest } from "$/routes/api/v1/resolve";
-    import Hako from "$modules/hako-ui/Hako.svelte";
+    import Hako from "$lib/hako-ui/Hako.svelte";
     import BlindOnlyLink from "./BlindOnlyLink.svelte";
     import Counters, { updateCounters } from "./Counters.svelte";
     import { updateLeaderboard } from "./Leaderboard.svelte";
@@ -203,7 +203,7 @@
         padding: calc(var(--h-padding) * 2);
     }
     .result-details a {
-        background: var(--h-color-gradient-1);
+        background: var(--h-color-gradient-0);
         background-clip: text;
         -webkit-background-clip: text;
         color: transparent;

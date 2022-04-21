@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
     import { request } from "$/plugins/common/api";
     import type { getLeaderboardRequest } from "$/routes/api/v1/profile/leaderboard";
+import Hako from "$lib/hako-ui/Hako.svelte";
     import type { Writable } from "svelte/store";
     import { writable } from "svelte/store";
     import BlindOnly from "./BlindOnly.svelte";
@@ -24,8 +25,7 @@
     {:else}
         {#each $leaderboardRows as row, i}
             <li class="row">
-                <div class="glow" />
-                <div class="background" />
+                <Hako />
                 <div class="rank">#{i + 1}</div>
                 <article class="details">
                     <div class="nickname">
@@ -62,7 +62,7 @@
         display: grid;
         place-items: center;
         padding: var(--h-padding);
-        border-right: solid 0.1em var(--g-current-color);
+        border-right: solid 0.1em var(--h-current-color);
     }
 
     .details {
@@ -78,31 +78,11 @@
     }
 
     .row {
-        --border-width: 0px;
-        --glow-blur: 0.2em;
-        --glow-brightness: 0.75;
-        --background: var(--h-color-mode);
-        --background-opacity: 0.95;
-    }
-
-    .glow {
-        position: absolute;
-        inset: calc(-1 * var(--border-width));
-        background: var(--h-color-gradient-1);
-        filter: blur(var(--glow-blur)) brightness(var(--glow-brightness));
-    }
-
-    .background {
-        position: absolute;
-        inset: 0;
-        background-color: var(--background);
-        border-radius: calc(var(--border-radius) / 2);
-        filter: opacity(var(--background-opacity));
-    }
-
-    .glow {
-        animation: background-anim 5s linear infinite alternate;
-        background-repeat: repeat;
+        --h-border-width: 0px;
+        --h-glow-blur: 0.2em;
+        --h-glow-brightness: 0.75;
+        --h-background-background: var(--h-color-mode);
+        --h-background-opacity: 0.95;
     }
 
     .score {
