@@ -81,6 +81,7 @@
             <input
                 id="search-field"
                 type="url"
+                required
                 bind:value={href}
                 aria-label="enter youtube u.r.l to search it on LBRY"
                 placeholder="YouTube Channel or Video URL"

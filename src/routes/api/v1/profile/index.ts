@@ -10,3 +10,15 @@ export const getProfileRequest = apiRequest<
         return await prisma.profile.findUnique({ where: { publicKey: params.publicKey } })
     })
 export const get = getProfileRequest.requestHandler
+
+export const postProfileRequest = apiRequest<
+    Pick<Parameters<PrismaClient['profile']['create']>[0]['data'], 'nickname'>
+>()
+    (async ({ params, profile }) =>
+    {
+        return await prisma.profile.update({
+            where: { publicKey: profile.publicKey },
+            data: { nickname: params.nickname.trim() || null }
+        })
+    })
+export const post = postProfileRequest.requestHandler

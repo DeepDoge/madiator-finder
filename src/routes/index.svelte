@@ -2,6 +2,10 @@
     import Search from "$lib/App/Search.svelte";
 </script>
 
+<svelte:head>
+    <title>Madiator Finder</title>
+</svelte:head>
+
 <div class="content">
     <h1>Search</h1>
     <Search />
