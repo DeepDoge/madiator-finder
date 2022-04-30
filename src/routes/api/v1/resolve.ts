@@ -90,27 +90,32 @@ async function task(params: {
         {
             const responseIdEntries = Object.entries(response.data[params.odyseeApi.responsePath]).filter(([id, lbryUrl]) => lbryUrl) as [string, string][]
 
-            await prisma.lbryUrlMap.createMany({
-                data: responseIdEntries.map(([id, lbryUrl]) =>
-                {
-                    const data: Parameters<typeof prisma.lbryUrlMap.createMany>['0']['data'] = {
-                        id,
-                        lbryUrl,
-                        scrapDate: Date.now(),
-                        profilePublicKey: profile?.publicKey,
-                        type: params.type
-                    }
-                    return data
-                })
+            const createManyData = responseIdEntries.map(([id, lbryUrl]) =>
+            {
+                const data: Parameters<typeof prisma.lbryUrlMap.createMany>['0']['data'] = {
+                    id,
+                    lbryUrl,
+                    scrapDate: Date.now(),
+                    profilePublicKey: profile?.publicKey,
+                    type: params.type
+                }
+                return data
             })
 
-            if (profile)
-            {
-                await prisma.profile.update({
-                    data: { score: profile.score + responseIdEntries.length },
-                    where: { publicKey: profile.publicKey }
-                })
-            }
+            if (profile) await prisma.profile.update({
+                data: {
+                    score: profile.score + createManyData.length,
+                    LbryUrlMap: {
+                        createMany: {
+                            data: createManyData
+                        }
+                    }
+                },
+                where: { publicKey: profile.publicKey }
+            })
+            else await prisma.lbryUrlMap.createMany({
+                data: createManyData
+            })
 
             Object.assign(cache, Object.fromEntries(responseIdEntries))
         })
