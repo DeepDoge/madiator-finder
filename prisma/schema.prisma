@@ -29,7 +29,7 @@ model LbryUrlMap {
 
 model Profile {
     publicKey  String       @id
-    nickname   String?
-    score      Int       @default(0)
+    nickname   String?      @unique
+    score      Int          @default(0)
     LbryUrlMap LbryUrlMap[]
 }
