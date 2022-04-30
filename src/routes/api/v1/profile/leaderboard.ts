@@ -8,7 +8,8 @@ export const getLeaderboardRequest = apiRequest<
     {
         return await prisma.profile.findMany({
             orderBy: { score: 'desc' },
-            take: 100
+            take: 100,
+            where: { NOT: { score: 0 } }
         })
     })
 export const get = getLeaderboardRequest.requestHandler
