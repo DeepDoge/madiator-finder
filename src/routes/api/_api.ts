@@ -35,13 +35,12 @@ export function apiRequest<Params>(requireAuth = false)
                         const keys = JSON.parse(event.params.keys)
                         const data = new URLSearchParams(event.url.searchParams)
                         data.delete('keys')
-                        if (!verify(data.toString(), keys.signature, keys.publicKey))
-                            throw new Error()
+                        if (!verify(data.toString(), keys.signature, keys.publicKey)) throw new Error("Invalid Signature")
                         var profile = await prisma.profile.findUnique({ where: { publicKey: keys.publicKey } })
                         if (!profile) profile = await prisma.profile.create({ data: { publicKey: keys.publicKey } })
                     }
 
-                    if (requireAuth && !profile) throw new Error()
+                    if (requireAuth && !profile) throw new Error("Signature is required for this call")
 
                     const params = event.params.data && r.deserialize(event.params.data)
 

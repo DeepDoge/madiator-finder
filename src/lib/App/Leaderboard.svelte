@@ -32,7 +32,7 @@ import Hako from "$lib/hako-ui/Hako.svelte";
                         <BlindOnly>
                             {row.nickname ? "nickname" : "public key"}
                         </BlindOnly>
-                        {row.nickname ?? row.publicKey.substring(row.publicKey.length - 64, row.publicKey.length - 32)}
+                        {row.nickname ?? row.publicKey}
                     </div>
                     <div class="score">Score: {row.score}</div>
                 </article>
