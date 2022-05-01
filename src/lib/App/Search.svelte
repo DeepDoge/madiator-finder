@@ -51,7 +51,7 @@
 
             const r = await request<typeof resolveYtRequest>(`/v1/resolve?${searchParams.toString()}`, {});
 
-            result = r.channels?.[data.id] ?? r.videos?.[data.id] ?? EMPTY;
+            result = r.data.channels?.[data.id] ?? r.data.videos?.[data.id] ?? EMPTY;
 
             if (result) {
                 updateCounters.call(null);

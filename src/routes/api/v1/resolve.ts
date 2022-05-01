@@ -32,32 +32,34 @@ export const resolveYtRequest = apiRequest()
             } : {}
         ))
 
-        return Object.assign(
-            p.channelIds?.length > 0 ?
-                {
-                    channels: await task({
-                        ids: p.channelIds,
-                        type: 'Channel',
-                        odyseeApi: {
-                            responsePath: 'channels',
-                            searchParam: 'channel_ids'
-                        },
-                        keys: p.keys
-                    }, profile)
-                } : {},
-            p.videoIds?.length > 0 ?
-                {
-                    videos: await task({
-                        ids: p.videoIds,
-                        type: 'Video',
-                        odyseeApi: {
-                            responsePath: 'videos',
-                            searchParam: 'video_ids'
-                        },
-                        keys: p.keys
-                    }, profile)
-                } : {}
-        ) as { channels?: Record<string, string>, videos?: Record<string, string> }
+        return {
+            data: Object.assign(
+                p.channelIds?.length > 0 ?
+                    {
+                        channels: await task({
+                            ids: p.channelIds,
+                            type: 'Channel',
+                            odyseeApi: {
+                                responsePath: 'channels',
+                                searchParam: 'channel_ids'
+                            },
+                            keys: p.keys
+                        }, profile)
+                    } : {},
+                p.videoIds?.length > 0 ?
+                    {
+                        videos: await task({
+                            ids: p.videoIds,
+                            type: 'Video',
+                            odyseeApi: {
+                                responsePath: 'videos',
+                                searchParam: 'video_ids'
+                            },
+                            keys: p.keys
+                        }, profile)
+                    } : {}
+            )
+        } as { data: { channels?: Record<string, string>, videos?: Record<string, string> } }
     })
 export const get = resolveYtRequest.requestHandler
 
