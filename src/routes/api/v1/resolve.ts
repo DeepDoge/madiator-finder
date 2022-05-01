@@ -96,7 +96,6 @@ async function task(params: {
                     id,
                     lbryUrl,
                     scrapDate: Date.now(),
-                    profilePublicKey: profile?.publicKey,
                     type: params.type
                 }
                 return data
