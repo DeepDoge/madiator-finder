@@ -12,7 +12,7 @@
         "prisma:generate": "prisma generate",
         "prisma:studio": "prisma studio",
         "git:pull:submodules": "git submodule init ; git submodule update ; git submodule foreach --recursive git submodule init ; git submodule foreach --recursive git submodule update ; git submodule foreach --recursive git checkout master",
-        "postinstall": "npm run git:pull:submodules && npm add -D prisma && npm run prisma:generate"
+        "postinstall": "npm run git:pull:submodules && npm run prisma:generate"
     },
     "devDependencies": {
         "@fontsource/fira-mono": "^4.2.2",
@@ -24,6 +24,7 @@
         "@types/cookie": "^0.4.0",
         "big.js": "^6.1.1",
         "cookie": "^0.4.1",
+        "prisma": "^3.14.0",
         "svelte": "^3.34.0",
         "svelte-check": "^2.0.0",
         "svelte-icons": "^2.1.0",
