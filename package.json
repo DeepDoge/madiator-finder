@@ -11,8 +11,9 @@
         "prisma:migrate": "prisma migrate dev --name init",
         "prisma:generate": "prisma generate",
         "prisma:studio": "prisma studio",
-        "git:pull:submodules": "git submodule init ; git submodule update ; git submodule foreach --recursive git submodule init ; git submodule foreach --recursive git submodule update ; git submodule foreach --recursive git checkout master",
-        "postinstall": "npm run git:pull:submodules && npm run prisma:generate"
+        "git:submodules:init": "git submodule init ; git submodule update ; git submodule foreach --recursive \"git submodule init ; git submodule update ; git checkout master\"",
+    	"git:submodules:pull": "npm run git:submodules:init ; git submodule foreach --recursive git pull",
+    	"postinstall": "npm run git:submodules:init && npm run prisma:generate"
     },
     "devDependencies": {
         "@fontsource/fira-mono": "^4.2.2",
